@@ -93,7 +93,7 @@ translator:
   enable_completion: false # 编码提示开关
   enable_user_dict: true
   enable_encoder: true
-  max_phrase_length: 4  #对连续上屏的字词进行自动造词。若注销此项，则不显示阴阳鱼，且仅对连续上屏的单字进行自动造词。
+  max_phrase_length: 4
   disable_user_dict_for_patterns:
     - "^o.*$"
     - "^`.*$"
