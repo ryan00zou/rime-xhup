@@ -67,7 +67,7 @@ speller:
   initials: 'abcdefghijklmnopqrstuvwxyz;'
   finals: '/'
   delimiter: "'"
-  max_code_length: 4
+  max_code_length: 4  #对连续上屏的字词进行自动造词。若注销此项，则不显示阴阳鱼，且仅对连续上屏的单字进行自动造词。
   auto_select: true   #顶字上屏
   auto_select_pattern: ^;.$|^\w{4}$
   #auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
