@@ -1,0 +1,147 @@
+# Rime dict
+# encoding: utf-8
+
+---
+name: flypy.extended
+version: "0.1"
+sort: original
+import_tables:
+  - flypy
+
+encoder:
+  exclude_patterns:
+    - '^o.*$'
+    - '^`.*$'
+  rules:
+    - length_equal: 2
+      formula: "AaAbBaBb"
+    - length_equal: 3
+      formula: "AaBaCaCb"
+    - length_in_range: [4, 10]
+      formula: "AaBaCaZa"
+...
+
+# coding: utf-8
+# 小鹤音形“置顶”用户词库（与系统词条重码时居前）
+# 该文件以UTF-8编码保存
+# 本词库可批量添加自造词，根据flypy造词规则自动生成编码 
+# 超过一定词长，则需要手动编码
+# 编码格式：字词+Tab符+编码（用户词库本身有重码则还需后面+Tab符+权重，权重大者居前，权重数字随意）
+#
+#    === 强调一下 === 
+# 
+#   词条和编码之间的不是空格，而是Tab符，如果你不知道，就复制下面编码中的空白处
+#   或者按住键盘 G 键，切换到功能键盘，使用上面的Tab键
+# 
+#    ================
+# 
+# 如两个用户词重码，则需加权重排序，权重大者居前，如下：
+#
+# 同文	tw	90
+# 提问	tw	30
+#
+# 如只加一个用户词，则无需权重，如下（如想居于系统词“台湾”后，请把词条放到flypy_user文件内）：
+#
+# 同文	tw
+#
+# 如和系统词重码且要放中间，如下设置：
+#
+# 技术	jiuu	100
+# 奇数	jiuu	90
+# 既成事实	jiuu	80
+#    ================
+
+# 本词库和系统词重码时置顶。
+
+#用户置顶词库，此行后开始添加，编码格式见上。切换方案或部署后生效
+# no comment
+
+辨析	bmxi
+表语	bnyu
+补发	bufa
+补语	buyu
+备课	bwke
+从句	csju
+词类	cilw
+词性	cixk
+定语	dkyu
+大区	daqu
+倒装	dcvl
+单项	djxl
+单元	djyr
+辅音	fuyb
+分词	ffci
+反身	fjuf
+反义	fjyi
+复合	fuhe
+复数	fuuu
+高德	gcde
+果核	gohe
+工整	gsvg
+好嘞	hclw
+划线	hxxm
+解题	jpti
+较差	jnia
+句型	juxk
+晋级	jbji
+基数	jiuu
+记账	jivh
+及物	jiwu
+京东	jkds
+坚果	jmgo
+简介	jmjp
+较慢	jnmj
+教研	jnyj
+介词	jpci
+结课	jpke
+旧州	jqvz
+句式	juui
+句中	juvs
+江咏峻	jyjy
+考前	kcqm
+课件	kejm
+课时	keui
+例题	liti
+量词	llci
+廖振宇	lvy
+年金	nmjb
+拼读	pbdu
+浦发	pufa
+情态	qktd
+祈使句	quju
+群里	qyli
+题干	tigj
+题型	tixk
+听写	tkxp
+时态	uitd
+审题	ufti
+试题	uiti
+事物	uiwu
+述职	uuvi
+主干	vugj
+主谓	vuww
+真题	vfti
+指代	vidd
+知乎	vihu
+中天	vstm
+主句	vuju
+主旨	vuvi
+谓语	wwyu
+完形	wjxk
+外研	wdyj
+外教	wdjn
+问句	wfju
+悟性	wuxk
+未知	wwvi
+线上	xmuh
+校区	xnqu
+学管	xtgr
+学情	xtqk
+讯飞	xyfw
+元音	yryb
+原级	yrji
+原形	yrxk
+语境	yujk
+预排	yupd
+云岩	yyyj
+有时	yzui
