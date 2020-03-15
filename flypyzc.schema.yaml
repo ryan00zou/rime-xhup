@@ -1,4 +1,4 @@
-# Rime schema settings
+# Flypyzc schema settings
 # encoding: utf-8
 
 schema:
@@ -16,19 +16,36 @@ schema:
 punctuator:
   import_preset: default
 
-switches:
+switches: # 可在状态栏上显示的内容，去掉下面的"#"号可开启
+  - options: [ _keyboard_menu ]
+    states: [ "　☰" ]
   - name: ascii_mode
+    states: [ CN, EN ]
     reset: 0
-   # states: [ 中文, 英文 ]
   - name: full_shape
-   # states: [ 半角, 全角 ]
+    #states: [ ◖, ● ]
+    reset: 0
+  - options: [ _keyboard_emoji, _keyboard_emoji ]
+    states: [ "🎏", "😂"]
+  - options: [ _keyboard_number ]
+    #states: [ 123 ]
+    ascii_mode: 0
+  - options: [ _key_VOICE_ASSIST ]
+    #states: [ "🎤" ]
   - name: simplification
-   # states: [ 简, 繁 ]
+    #states: [ 简, 繁 ]
+    reset: 0
+  - name: _hide_candidate
+    #states: [ ☐, ☒ ]
     reset: 0
   - name: ascii_punct
-   # states: [ 。，, ．， ]
+    #states: [ "，。", " ,　. " ]
     reset: 0
-
+  - options: [ _keyboard_default, _keyboard_defaultVJ]
+    states: [ "　　　　　　　", "　　　　　　　"]
+  - options: [ _key_Hide ]
+    states: [ ﹀ ]
+    
 engine:
   processors:
     - ascii_composer
@@ -57,7 +74,8 @@ engine:
     - table_translator@custom_phraseVD
     - table_translator@custom_phraseYH
     - reverse_lookup_translator
-    - history_translator@history
+    - history_translator@historyF
+    - history_translator@historyI
   filters:
     - simplifier
     - simplifier@simplification
@@ -67,16 +85,16 @@ speller:
   alphabet: '/;zyxwvutsrqponmlkjihgfedcba'
   initials: 'abcdefghijklmnopqrstuvwxyz;'
   finals: '/'
-  delimiter: "'"
-  max_code_length: 4
-  auto_select: true   #顶字上屏
-  auto_select_pattern: ^;.$|^\w{4}$
+  delimiter: " '"
+  max_code_length: 4 #全码码长，过则顶字上屏
+  auto_select: true   #自动上屏
+  auto_select_pattern: ^;.$|^\w{4}$ #自动上屏规则
   #auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
 
 fixed:
-    __include: /translator
-    enable_user_dict: false
-    initial_quality: 1000
+  __include: /translator
+  enable_user_dict: false
+  initial_quality: 1000
 
 udzc:
   __include: /translator
@@ -85,7 +103,7 @@ udzc:
   prefix: "'"
   tips: "〔手动造词〕"
   tag: udzc
-
+  
 translator:
   dictionary: flypyzc.extended
   db_class: tabledb
@@ -99,15 +117,20 @@ translator:
     - "^o.*$"
     - "^`.*$"
 
-history:
+historyF:
    input: ;f
    size: 1 #重复前几次上屏
    initial_quality: 1 #首选
    
+historyI:
+   input: i
+   size: 1 #重复前几次上屏
+   initial_quality: 0 #次选
+   
 simplification:
   opencc_config: s2tw.json
   option_name: simplification
-  tips: all #简繁对照
+  tips: all  #简繁对照，all字詞  char字
 
 custom_phraseXT:
   dictionary: ""
@@ -115,7 +138,7 @@ custom_phraseXT:
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
-  initial_quality: -1 本表词和系统词重码居后
+  initial_quality: -1 #本表词和系统词重码居后
 
 custom_phraseVD:
   dictionary: ""
@@ -123,7 +146,7 @@ custom_phraseVD:
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
-  initial_quality: 10000 用户词和系统词重码 置顶
+  initial_quality: 10000 #用户词和系统词重码 置顶
   
 custom_phraseYH:
   dictionary: ""
@@ -131,8 +154,7 @@ custom_phraseYH:
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
-  initial_quality: -1 用户词和系统词重码居后
-  
+  initial_quality: -1 #用户词和系统词重码居后
 
 reverse_lookup:
   dictionary: flypydz
@@ -146,29 +168,26 @@ key_binder:
   bindings:
     - {accept: bracketleft, send: Page_Up, when: paging} # [上翻页
     - {accept: bracketright, send: Page_Down, when: has_menu} # ]下翻页
-    - {accept: comma, send: comma, when: paging} #注销逗号翻页
-    - {accept: period, send: period, when: has_menu} #注销句号翻页
     - {accept: semicolon, send: 2, when: has_menu} #分号次选
     #- {accept: Release+semicolon, send: semicolon, when: has_menu} #如要使用分号引导符号功能，并双击上屏分号，需注销此行
     #- {accept: period, send: 2, when: has_menu} #句号次选，已用下面内容替代
-    - {accept:  dollar, send: 2, when: composing}
+    - {accept: comma, send: comma, when: paging} #注销逗号翻页
+    - {accept: period, send: period, when: has_menu} #注销句号翻页
+    - {accept: dollar, send: 2, when: composing}
     - {accept: Release+dollar, send: period, when: composing}
     #- {accept: Release+period, send: period, when: composing}
     #- {accept: comma, send: 2, when: has_menu} #逗号次选
     - {accept: bar, send: 2, when: composing}
     - {accept: Release+bar, send: comma, when: composing}
     #- {accept: Release+comma, send: comma, when: composing}
-
     - {accept: "Tab", send: Escape, when: composing}
     - {accept: "Caps_Lock", send: Escape, when: composing} 
     - {accept: "Shift_R", send: Escape, when: composing}
     - {accept: "Shift+space", toggle: full_shape, when: always} #切换全半角
+    - {accept: "Control+j", toggle: simplification, when: always} #切换简繁
     - {accept: "Control+period", toggle: ascii_punct, when: always} #切换中英标点
-    #- {accept: "Control+m", select: .next, when: always} #切换方案
-    #- {accept: "Control+j", toggle: simplification, when: always} #切换简繁
-    # - {when: has_menu, accept: space, send: space}      #针对候选时，作用空格
-    # - {when: composing, accept: space, send: Return}    #有输入码时，回车清编码
-    
+    - {accept: "Control+m", select: .next, when: always} #切换方案
+   
 recognizer:
   import_preset: default
   patterns:
@@ -176,7 +195,7 @@ recognizer:
     uppercase: "" #中文状态大写锁定直接上屏
     udzc: "^[a-z]*'[a-z']*$"
     reverse_lookup: "[a-z`]*`+[a-z`]*"
-    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+    url: "^(www[.]|https?:|ry-|ry_|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
     punct: ""
 
 menu:
