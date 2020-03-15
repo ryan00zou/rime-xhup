@@ -5,8 +5,6 @@ schema:
   schema_id: flypyzc
   name: Auto Fly
   version: "1.5"
-  author:
-    - 方案设计：Ryan <ry-an@qq.com>
   description: |
     小鹤音形挂接码表
   dependencies:
