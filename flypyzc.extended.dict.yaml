@@ -1,0 +1,240 @@
+# Rime dict
+# encoding: utf-8
+
+---
+name: flypyzc.extended
+version: "0.1"
+sort: original
+import_tables:
+  - flypyzc
+
+encoder:
+  exclude_patterns:
+    - '^o.*$'
+    - '^`.*$'
+  rules:
+    - length_equal: 2
+      formula: "AaAbBaBb"
+    - length_equal: 3
+      formula: "AaBaCaCb"
+    - length_in_range: [4, 10]
+      formula: "AaBaCaZa"
+...
+
+# coding: utf-8
+# 该文件以UTF-8编码保存
+# 本词库可批量添加自造词，根据flypyzc造词规则自动生成编码 
+# 超过一定词长，则需要手动编码
+# 编码格式：字词+Tab符+编码
+# 
+# 如两个用户词重码，则将权重大者居前，如下（同文）：
+# 同文	tw
+# 提问	tw
+#
+# 如和系统词重码且要居中，如下设置（奇数）：
+# 技术	jiuu
+# 奇数	jiuu
+# 既成事实	jiuu
+
+# 本词库若含有编码，和系统词重码时置顶。如：
+# 人名	rfmk （将置顶于系统词：任命）
+
+# 本词库若无编码，和系统词重码时居后。如：
+# 谓语  （将居后于系统词：位于，万无一失）
+
+#用户词库，此行后开始添加，编码格式见上。切换方案或部署后生效
+# 置顶词库
+æ	oyba
+ɑ:	oyba
+ʌ	oyba
+ɑɪ	oyba
+ɑʊ	oyba
+ʤ	oybd
+dr	oybd
+ʣ	oybd
+eɪ	oybe
+eə	oybe
+ɪ	oybi
+i:	oybi
+ɪə	oybi
+ŋ	oybn
+ɒ	oybo
+ɔ:	oybo
+ə	oybo
+ɜ:	oybo
+ɔɪ	oybo
+əʊ	oybo
+ʒ	oybr
+ʃ	oybs
+θ	oybs
+tr	oybt
+ʧ	oybt
+ʦ	oybt
+u:	oybu
+uə	oybu
+ð	oybz
+安顺	anuy
+宾格	bbge
+半期	bjqi
+辨析	bmxi
+表语	bnyu
+补语	buyu
+备课	bwke
+词类	cilw
+词性	cixk
+词源	ciyr
+从句	csju
+大区	daqu
+倒装	dcvl
+单项	djxl
+定语	dkyu
+定语从句	dycj
+荳	dzca
+抖音	dzyb
+分词	ffci
+复合	fuhe
+复数	fuuu
+辅音	fuyb
+复议	fyy
+跟读	gfdu
+冠词	grci
+工整	gsvg
+好嘞	hclw
+划线	hxxm
+常考	ihkc
+产检	ijjm
+崇州	isvz
+及物	jiwu
+间接引语	jjyy
+较差	jnia
+较慢	jnmj
+教研	jnyj
+介词	jpci
+解题	jpti
+句式	juui
+句中	juvs
+句型	juxk
+句意	juyi
+考纲	kcgh
+考前	kcqm
+课堂记录	ktjl
+祈使句	quju
+群里	qyli
+入门测	rmc
+入门测	rmce
+题干	tigj
+听写	tkxp
+填空	tmks
+生育	ugyu
+时态	uitd
+试题	uiti
+数词	uuci
+事物	uwn
+事务	uww
+实义动词	uydc
+实用	uyk
+真题	vfti
+指代	vidd
+知乎	vihu
+专项	vrxl
+主格	vuge
+主句	vuju
+主旨	vuvi
+主谓	vuww
+周佳	vzjx
+外教	wdjn
+外貌	wdmc
+外研	wdyj
+问句	wfju
+文库	wfku
+完形	wjxk
+物主	wuvu
+谓语	wwyu
+线上	xmuh
+学管	xtgr
+学情	xtqk
+讯飞	xyfw
+阅读理解	ydlj
+预订	ydy
+原级	yrji
+原句	yrju
+原形	yrxk
+元音	yryb
+月考	ytkc
+语境	yujk
+预排	yupd
+语篇	yupm
+云岩	yyyj
+有时	yzui
+人名	rfmk
+邹彪	zzbn
+# 人名
+徐钰炜	xyww
+帅君仪	ujyi
+石春玉	uiyu
+周叙任	vxrf
+兰雨夏	lyxx
+
+# 居后词库
+保额
+保费
+补发
+导图
+高德
+广安
+果核
+观山湖
+花果园
+汉英
+晋级
+金阳
+记账
+京东
+坚果
+简介
+旧州
+课次
+课酬
+课件
+课时
+可数
+朗文
+历年
+例题
+量词
+密钥
+磨课
+拼读
+排课
+浦发
+培文
+期中
+情态
+认读
+人寿
+题型
+同义
+图床
+稍弱
+审题
+上册
+下册
+师大
+视图
+时效
+双解
+述职
+收集
+中天
+祝好
+猪蹄
+悟性
+维度
+未知
+信件
+校区
+谢啦
+续班
+一场
+以	yi
+医	yi
