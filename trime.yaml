@@ -1,0 +1,1656 @@
+# Trime default style settings
+# encoding: utf-8
+
+config_version: "4.7for同文3.1.3，2020年7月11日"
+name: 小鹤 #主题名称
+author: 散步的鹤 flypy.com#作者资讯
+
+height:
+# ----------键盘行高度调整------------
+
+  A: &VJG 56  #主键盘行高  自定   
+  B: &VJM 57  #空格行高  B≈A，如主键盘和符号键盘不等高，调整此数
+  C: &FJG 45  #符号键盘行高  C=A*4/5=44.8取整随意
+
+  D: &HXG 44  #候选区高度
+  
+# ----------空格行键宽度调整------------
+
+  H: &HCK 19   #回车
+  F: &FHK 13   #分号
+  K: &KGK 33   #空格
+  S: &SBK 17.5  #数字标点
+  #空格行 2*S+K+F+H=100
+  
+# ----------上下档符号位置调整----------
+
+  Ⅰ: &DsymY 1.5   #上档文字纵向位置调节
+  Ⅱ: &DsymX 3   #上档文字横向位置调节
+  Ⅲ: &DtextY 0   #键盘字母纵向位置调节
+  Ⅳ: &DhintY -2 #键盘下档纵向
+  Ⅴ: &FHsymY 1   #符号键盘
+  Ⅵ: &MtextY -6   #选单键盘
+  Ⅶ: &MhintY -6
+  Ⅷ: &MtextBY 6  #返回
+#-------------
+other:
+#主键盘结构（四行）  建议不动
+  a: &VJH 0   #主键盘行距
+  b: &VJL 0   #主键盘列距
+  c: &VJY 0   #主键盘圆角
+#符号键盘结构（五行）  建议不动
+  d: &FJH 0   #符号键盘行距
+  e: &FJL 0   #符号键盘列距
+  f: &FJY 0   #符号键盘圆角
+style:
+  auto_caps: false #自动句首大写:true|false|ascii
+  background_dim_amount: 0.5
+  candidate_font: ziti.ttf #候选字型
+  candidate_padding: 5 #候选项内边距
+  candidate_spacing: 10 #候选间距
+  candidate_text_size: 19 #候选字号
+  candidate_use_cursor: true #高亮候选项
+  candidate_view_height: *HXG #候选区高度
+  color_scheme: default #配色方案
+  comment_font: ziti.ttf #候选窗和状态栏提示字型
+  comment_height: 12 #候选窗和状态栏提示区高度
+  comment_on_top: false #候选窗和状态栏提示在上方true或右侧false
+  comment_text_size: 12 #候选窗和状态栏提示字号
+  hanb_font: Ext.ttf #扩充字型
+  horizontal: false #水平模式
+  horizontal_gap: *FJL #符号键盘列间距
+  layout: #悬浮窗口位置
+    position: right #位置：left|right|left_up|right_up|fixed|bottom_left|bottom_right|top_left|top_right(left、right需要Android5.0以上)
+    min_length: 0 #候选窗口最小词长
+    max_length: 4 #超过字数则换行
+    sticky_lines: 0 #固顶行数
+    max_entries: 5 #候选窗口最大词条数
+    all_phrases: false #所有满足条件的词语都显示在窗口
+    border: 1 #候选窗口边框宽度
+    max_width: 1080 #最大宽度，超过则自动换行
+    max_height: 10 #最大高度
+    min_width: 30 #最小宽度
+    min_height: 0 #最小高度
+    margin_x: 12 #水平边距
+    margin_y: 3 #竖直边距
+    line_spacing: 0 #候选词的行间距(px)
+    line_spacing_multiplier: 1 #候选词的行间距(倍数)
+    spacing: 44 #悬浮窗偏移量
+    round_corner: 12 #候选窗口圆角
+    alpha: 255 #透明度(0-255)
+    elevation: 5 #阴影(>=Android5.0)
+    background: candidate_text_color #颜色色或者backgrounds目录下的图片文件名，此项无效时后面配色的text_back_color则生效
+    movable: true #是否可移动窗口，或仅移动一次 true|false|once
+  window: #悬浮窗口組件
+    #- {start: "", composition: "%s", end: "\n", letter_spacing: 0} #letter_spacing需要Android5.0。TODO: 不为0时，会导致不换行的问题
+    - {start: "", label: "%s.", candidate: "%s", comment: " %s", end: " ", sep: "　 "}  #label: "%s.", 序号;start: "\n", 换行
+    #- {start: "", move: '　', end: ""}
+    - {start: "", click: "Page_Up", label: "　"}
+    - {start: "", click: "Page_Down", label: '✍'}
+  key_font: ziti.ttf #键盘字型
+  key_height: *FJG #符号键盘键高
+  key_long_text_size: 15 #两字以上时键字号
+  key_text_size: 21 #键字号
+  key_width: 10.0 #键宽，占银幕宽的百分比
+  keyboards: [.default, default, defaultVJ, letter, letterfh, number, edit, menu, symbols, symbolsSZ, symbolsEN, symbolsEN2, symbolsCN, emoji, emoji2, symbolsTS, symbolsTS2, symbolsXH, symbolsXH2] #键盘配置
+  label_text_size: 14 #悬浮窗序号字号
+  label_font: ziti.ttf #标签字型
+  latin_font: latin.ttf #西文字型
+  latin_locale: en_US #西文语言
+  locale: zh_CN #预设语言 zh_TW,zh_CN,zh_HK,""
+  preview_font: ziti.ttf #按键提示字型
+  preview_height: 50 #按键提示高度
+  preview_offset: -10 #按键提示纵向偏移
+  preview_text_size: 36 #按键提示字号
+  proximity_correction: true #无click时是否沿用相邻键功能，位于左右两端的即使否也会沿用
+  reset_ascii_mode: false #不同进程中显示键盘时重置为中文状态（true:重置为中文；false:记忆中英状态）
+  round_corner: *FJY #符号键盘按键圆角半径
+  shadow_radius: 0.0 #按键阴影半径
+  speech_opencc_config: none #语音输入简繁转换
+  symbol_font: ziti.ttf #符号字型
+  symbol_text_size: 10 #符号字号
+  text_font: ziti.ttf #编码字型
+  text_size: 15 #编码字号
+  vertical_correction: -3 #按键纵向偏移，负数下移接触面
+  vertical_gap: *FJH #符号键盘行距
+fallback_colors:
+  keyboard_back_color: border_color  #键盘背景
+  #悬浮窗
+  border_color: back_color #悬浮窗边框
+  hilited_back_color: text_back_color #back_color #悬浮窗首选编码背景
+  hilited_candidate_back_color: text_back_color #hilited_back_color #悬浮窗首选背景
+  hilited_text_color: text_color #悬浮窗编码
+  text_back_color: back_color #编码区悬浮窗背景
+  label_color: candidate_text_color #悬浮窗次选序号
+  #气泡
+  preview_back_color: back_color #按键气泡背景
+  preview_text_color: key_text_color #按键气泡文本
+  shadow_color: border_color #按键文字阴影（阴影半径在shadow_radius中设置）
+  #状态栏候选栏
+  candidate_separator_color: zgb #border_color #状态栏分割背景
+  candidate_text_color: text_color #CN次选文字色
+  comment_text_color: candidate_text_color #EN次选编码提示
+  hilited_candidate_text_color: comment_text_color #hilited_text_color #首选文字
+  hilited_comment_text_color: candidate_text_color #comment_text_color #首选编码提示
+  #普通键
+  key_back_color: back_color #符号键盘按键背景✍背景
+  hilited_key_back_color: hilited_candidate_back_color #高亮按键背景
+  key_text_color: candidate_text_color #按键字母&悬浮窗✍色
+  hilited_key_text_color: key_text_color #hilited_candidate_text_color #高亮按键文本
+  key_symbol_color: comment_text_color #按键上下符号
+  hilited_key_symbol_color: key_symbol_color #hilited_comment_text_color #高亮按键符号
+  #shift键锁定
+  on_key_back_color: hilited_key_back_color #shift锁键时背景（shift键不得设置key_back_color，否则无效）
+  on_key_text_color: comment_text_color #hilited_key_text_color #shift锁键时文本
+  hilited_on_key_back_color: hilited_key_back_color #shift锁定时的高亮背景，按下时
+  hilited_on_key_text_color: on_key_text_color #hilited_key_text_color #shift锁定时的高亮文本
+  #shift键常态及功能键
+  off_key_back_color: key_back_color #功能键及Shift键背景
+  hilited_off_key_back_color: hilited_key_back_color #功能键及shift高亮背景
+  off_key_text_color: key_text_color #功能键及shift键文本，如shift使用背景图标，可另定SHt为透明色
+  hilited_off_key_text_color: off_key_text_color #hilited_key_text_color #功能键及shift键高亮文本
+  789B: bdb #比翼上排数字背景
+  789H: bdh #        高亮背景
+  789T: off_key_text_color #数字色
+  AAS: key_symbol_color #主键盘上档文字
+  VJS: AAS #小鹤高飞助记键盘上档
+  VJT: AAT #小鹤高飞助记键盘字母
+  AAT: key_text_color #主键盘字母色
+  AAT1: AAT
+  AAT2: AAT
+  AAT3: AAT
+  AAT4: AAT
+  AAT5: AAT
+  AAT6: AAT
+  A_Q: A_ #主键盘字母背景
+  B_: A_
+  C_: A_
+  A_W: B_
+  A_E: C_
+  A_R: A_Q
+  A_T: A_W
+  A_Y: A_E
+  A_U: A_Q
+  A_I: A_W
+  A_O: A_E
+  A_P: A_Q
+  A_A: A_Q
+  A_S: A_W
+  A_D: A_E
+  A_F: A_A
+  A_G: A_S
+  A_H: A_D
+  A_J: A_A
+  A_K: A_S
+  A_L: A_D
+  A_Z: A_Q
+  A_X: A_W
+  A_C: A_E
+  A_V: A_Z
+  A_B: A_X
+  A_N: A_C
+  A_M: A_Z
+  AAH: hilited_key_back_color #主键盘字母高亮背景色
+  BBH: AAH
+  CCH: AAH
+  kgb: zkgb
+  cdb: zgb #符号键盘末行键背景色
+  zyb: zgb #al左右背景
+  zyt: zgb #al左右文字
+  glb: zyb #比翼m键后键背景
+  xdbdb: zgb #选单&编辑键盘键背景色
+  szb: off_key_back_color #ϟ12键背景色
+  bdb: szb
+  hcb: szb
+  hsb: szb
+  szh: hilited_off_key_back_color #ϟ12键高亮背景
+  bdh: szh
+  hsh: szh
+  hch: szh
+  szt: off_key_text_color #ϟ12键文字色
+  bdt: szt
+  hst: szt
+  hct: szt
+  kgt: key_symbol_color
+  zkgt: kgt
+  ykgt: kgt
+  szht: hilited_off_key_text_color #高亮ϟ12键文字色
+  bdht: szht
+  hcht: szht
+  kght: bdht
+  szs: off_key_text_color #ϟ12键上档文字色
+  bds: szs
+  hcs: szs
+  szhs: szs
+  bdhs: szs
+  hchs: szs
+  kghs: bsd
+  xdgnb: szgnb
+  szgnb: szb
+  szgnh: szh
+  szhcb: hcb
+  szhch: hch
+  szhct: hct
+  szhcht: hcht
+  xdhcb: szhcb
+  xdhch: szhch
+  xdhct: szhct
+  xdhcht: szhcht
+  fhfhb: key_back_color
+  fhfht: bdt
+  fhfhh: bdh
+  cdh: comment_text_color #EN色
+  cdt: key_symbol_color
+  cd1: cdh
+  cd2: key_symbol_color
+  cd3: cd2
+  Eback: Mback #edit&menu背景
+  Vback: Dback #VJ&default背景
+  Lback: Dback
+  Nback: Lback  #number&letter背景
+#配色方案
+preset_color_schemes:
+  #__include: xhcolor:/preset_color_schemes #建独立配色文件xhcolor.yaml时启用
+  default:
+    author: flypy.com
+    name: "小鹤"
+    text_color: 0xff616161 #CN、悬浮窗编码次选序号，均源自此项
+    back_color: 0xffececec #候选区背景状态栏、悬浮窗^背景
+    key_back_color: XHbdb.png
+    hilited_key_back_color: XHgnh.png
+    comment_text_color: 0xfff97f70
+    key_symbol_color: 0xff919191
+    off_key_back_color: XHgnb.png
+    off_key_text_color: 0xffffffff
+    A_: XHkey.png
+    szb: XHszb.png
+    hsb: XHbdb.png
+    bdb: XHbdb.png
+    kgb: XHkgb.png
+    zkgb: XHzkgb.png
+    ykgb: XHykgb.png
+    kgh: IWkgh
+    ykgh: IWykgh.png
+    zkgh: IWzkgh.png
+    hcb: XHhcb.png
+    szgnb: XHgnb.png
+    cd3: 0xFF82d0d2
+    zgb: 0x00
+    Mback: 0xffdcdcdc
+    #AAS: 0x00 #隐藏字母上档
+    #AAT: 0x00 #隐藏字母，无刻
+    #VJS: 0x00 #隐藏无刻上档
+  guge:
+    author: flypy.com
+    name: "谷歌"
+    back_color: 0xffeeeeee
+    text_color: 0xff333333
+    candidate_separator_color: 0x00
+    keyboard_back_color: 0xffffffff
+    comment_text_color: 0xff73cacc
+    hilited_comment_text_color: 0xff333333
+    hilited_key_back_color: 0xffe1e1e1
+    hilited_off_key_back_color: GGgnh.png
+    hilited_on_key_back_color: GGgnh.png
+    key_back_color: 0x00
+    key_symbol_color: 0xff6f7b83
+    off_key_back_color: GGgnb.png
+    on_key_back_color: 0x00
+    A_: GGkey.png
+    AAH: GGkeyh.png
+    szgnb: 0xffe1e1e1
+    szgnh: 0xfff1f1f1
+    szhcb: 0xffe1e1e1
+    szhct: 0xff73cacc
+    szhch: 0xfff1f1f1
+    fhfht: 0xff73cacc
+    fhfhh: 0xffe1e1e1
+    kgb: GGkgb.png
+    zkgb: GGzkgb.png
+    ykgb: GGykgb.png
+    kgh: GGkgh.png
+    zkgh: IWzkgh.png
+    ykgh: IWykgh.png
+    hcb: GGhcb.png
+    hch: GGhch.png
+    hcs: 0xffffffff
+    hct: 0xffffffff
+    hcht: 0xffffffff
+    hchs: 0xffffffff
+    zyt: 0x00
+    zgb: 0xffeeeeee
+    Dback: 0xffeeeeee
+    Nback: 0xffffffff
+    xdbdb: 0xffffffff
+  ilmk:
+    author: flypy.com
+    name: "窗明"
+    back_color: 0xFFF4F4F4
+    text_color: 0xff111111
+    candidate_separator_color: 0x00
+    keyboard_back_color: 0xccF4F4F4
+    comment_text_color: 0xffff8ba8
+    hilited_candidate_back_color: 0x00
+    hilited_key_back_color: iwgnh.png #0xccF4F4F4
+    hilited_key_symbol_color: 0x00
+    key_back_color: IWgnb.png
+    key_symbol_color: 0xff666666
+    off_key_back_color: IWgnb.png
+    off_key_text_color: 0xffffffff
+    on_key_back_color: IWzyb.png #0xccF4F4F4
+    #AAS: 0x00
+    789B: IWkeyf.png
+    szb: IWbdb.png
+    hsb: IWgnb.png
+    szgnb: IWbdb.png
+    szhcb: IWbdb.png
+    xdbdb: IWzyb.png
+    A_: IWkey.png
+    kgb: IWkgb.png
+    kgh: IWkgh.png
+    kgt: 0xffffffff
+    kgs: 0xffffffff
+    zkgb: IWzkgb.png
+    ykgb: IWykgb.png
+    zkgh: IWzkgh.png
+    ykgh: IWykgh.png
+    cd2: 0xff999999
+    cd3: 0xff8bc5ff
+    cdt: 0xff666666
+    zyt: 0x00
+    zyb: IWzyb.png
+    zgb: IWzyb.png
+  ilnw:
+    author: flypy.com
+    name: "几净"
+    back_color: 0xFF2B2B2B
+    text_color: 0xFFcccccc
+    candidate_separator_color: 0x00
+    comment_text_color: 0xFFEB7A76
+    key_text_color: 0xFF363636
+    key_symbol_color: 0xFF363636
+    key_back_color: JVbdb.png
+    hilited_key_back_color: 0xFF888888
+    on_key_back_color: JVbdb.png
+    A_: JVkey.png
+    xdbdb: 0xFFC6CBCF
+    hsb: JVbdb.png
+    szb: JVgnb.png
+    zyt: 0x00
+    kgb: JVkgb.png
+    zkgb: JVzkgb.png
+    ykgb: JVykgb.png
+    cdt: 0xFFcccccc
+    zgb: 0x00
+    cd2: 0xFFcccccc
+  jmhw:
+    author: flypy.com
+    name: "暮暮"
+    back_color: 0xff202023 #0xfffefefe
+    text_color: 0xFFd2d2d2
+    keyboard_back_color: 0xff000000
+    candidate_separator_color: 0x00
+    comment_text_color: 0xFFEB7A76
+    key_text_color: 0xFFd2d2d2
+    key_symbol_color: 0xFF666666
+    key_back_color: JHgnb.png
+    hilited_key_back_color: 0xff65727f
+    on_key_back_color: JHgnb.png
+    off_key_back_color: JHgnb.png
+    A_: JHkey.png
+    zyt: 0x00
+    kgb: JHkgb.png
+    zkgb: JHzkgb.png
+    ykgb: JHykgb.png
+    zgb: 0x00
+    cd2: 0xFFa6a6a6
+    cdt: 0xFFa6a6a6
+  jmbd:
+    author: flypy.com
+    name: "朝朝"
+    back_color: 0xffffffff
+    text_color: 0xFF000000
+    keyboard_back_color: 0xffdddddd
+    candidate_separator_color: 0x00
+    comment_text_color: 0xFFEB7A76
+    key_text_color: 0xFF000000
+    key_symbol_color: 0xFF666666
+    key_back_color: JBgnb.png
+    hilited_key_back_color: 0xffcccccc
+    on_key_back_color: JBgnb.png
+    off_key_back_color: JBgnb.png
+    A_: JBkey.png
+    zyt: 0x00
+    kgb: JBkgb.png
+    zkgb: JBzkgb.png
+    ykgb: JBykgb.png
+    zgb: 0x00
+  iucd:
+    author: 青铜
+    name: "出彩"
+    text_color: 0xff000000
+    back_color: 0xFFF5F6FA
+    key_back_color: g_szb.png
+    hilited_key_back_color: 0x00
+    comment_text_color: 0xfff97f70
+    on_key_back_color: g_szhcb.png
+    on_key_text_color: 0xffffffff
+    key_symbol_color: 0xff000000
+    789B: XHkey.png
+    A_Q: g_q.png
+    A_W: g_w.png
+    A_E: g_e.png
+    A_R: g_r.png
+    A_T: g_t.png
+    A_Y: g_y.png
+    A_U: g_u.png
+    A_I: g_i.png
+    A_O: g_o.png
+    A_P: g_p.png
+    A_A: g_a.png
+    A_S: g_s.png
+    A_D: g_d.png
+    A_F: g_f.png
+    A_G: g_g.png
+    A_H: g_h.png
+    A_J: g_j.png
+    A_K: g_k.png
+    A_L: g_l.png
+    A_Z: g_z.png
+    A_X: g_x.png
+    A_C: g_c.png
+    A_V: g_v.png
+    A_B: g_b.png
+    A_N: g_n.png
+    A_M: g_m.png
+    szs: 0xff000000
+    kgb: g_kgb.png
+    kgt: 0xff000000
+    zkgb: g_zkgb.png
+    ykgb: g_ykgb.png
+    kgh: IWkgh
+    ykgh: IWykgh.png
+    zkgh: IWzkgh.png
+    szgnb: g_szgnb.png
+    szhcb: g_szhcb.png
+    cd2: 0xff666666
+    zgb: 0x00
+  jlye:
+    author: flypy.com
+    name: "将夜"
+    back_color: 0xFF666666
+    text_color: 0xffc9c9c9
+    comment_text_color: 0xFFDB6A66
+    hilited_back_color: 0x00
+    hilited_candidate_back_color: 0x00
+    hilited_key_back_color: NHgnh.png
+    key_back_color: NHbdb.png
+    key_symbol_color: 0xff919191
+    off_key_back_color: NHgnb.png
+    on_key_back_color: 0x00
+    789B: HTNkey.png
+    A_: NHkey.png
+    kgb: NHkgb2.png #HTNkgb.png
+    zkgb: NHzkgb2.png #HTNzkgb.png
+    ykgb: NHykgb.png #HTNykgb.png
+    kgh: NHkgh.png
+    zkgh: NHzkgh.png
+    ykgh: NHykgh.png
+    hct: 0xFFDB6A66
+    cdt: 0xffc9c9c9
+    zgb: 0x00
+  ios:
+    name: "iOS"
+    author: from IOS
+    back_color: 0xFFd3d7da #0xfff9f9f9
+    text_color: 0xff5a676e
+    comment_text_color: 0xff1181fc
+    hilited_comment_text_color: 0xff000000
+    hilited_key_back_color: IOSgnh.png
+    hilited_key_symbol_color: 0xffffffff
+    hilited_key_text_color: 0xffffffff
+    key_back_color: IOSbdb.png
+    key_symbol_color: 0xff5f6b73
+    key_text_color: 0xff010101
+    keyboard_back_color: 0xFFd3d7da
+    off_key_back_color: IOSgnb.png
+    on_key_back_color: 0x00
+    789B: IOSgnb.png
+    #AAS: 0x00
+    A_: IOSkey.png
+    AAH: IOSkeyh.png
+    bdb: IOSbdb.png
+    kgb: IOSkgb.png
+    zkgb: IOSzkgb.png
+    ykgb: IOSykgb.png
+    kgh: IOSkgh.png
+    zkgh: IOSzkgh.png
+    ykgh: IOSykgh.png
+    hcb: IOShcb.png
+    hcs: 0xffffffff
+    hct: 0xffffffff
+    fhfht: 0xff1181fc
+    zgb: 0x00
+  mac:
+    author: flypy.com
+    name: "Mac"
+    back_color: 0xFFC8CAC7
+    text_color: 0xff2e2e2e
+    comment_text_color: 0xffdb142d
+    hilited_key_back_color: MACgnh.png
+    key_back_color: MACbdb.png
+    key_symbol_color: 0xffe1e1e1
+    key_text_color: 0xfff1f1f1
+    off_key_back_color: MACgnb.png
+    on_key_back_color: 0x00
+    AAS: 0x00
+    A_: MACkey.png
+    AAH: MACkeyh.png
+    kgb: MACkgb.png
+    zkgb: MACzkgb.png
+    ykgb: MACykgb.png
+    kgh: MACkgh.png
+    zkgh: MACzkgh.png
+    ykgh: MACykgh.png
+    hcb: MAChcb.png
+    fhfht: 0xFF08B6CE
+    cdt: 0xff616161
+    cd2: 0xff919191
+    Mback: 0xff4f4f4f
+    zgb: 0x00
+  nihs:
+    author: flypy.com
+    name: "霓虹"
+    back_color: 0xFF282828
+    text_color: 0xffa9a9a9
+    comment_text_color: 0xFFDB6A66
+    hilited_back_color: 0x00
+    hilited_candidate_back_color: 0x00
+    hilited_candidate_text_color: 0xFF56A2FA
+    hilited_comment_text_color: 0xFF56A2FA
+    hilited_key_back_color: NHgnh.png
+    key_back_color: NHgnb.png
+    key_symbol_color: 0xff919191
+    off_key_back_color: NHgnb.png
+    on_key_back_color: 0x00
+    AAT1: 0xFFDB6A66  #QWASZX
+    AAT2: 0xFFE39243  #ERDFCV
+    AAT3: 0xFF3AA73E  #TGB
+    AAT4: 0xFF08B6CE  #YHN
+    AAT5: 0xFF3582CA  #UIJKM
+    AAT6: 0xFF786BD5  #OPL
+    789B: HTNkey.png
+    A_: HTNkey.png
+    kgb: NHkgb.png
+    zkgb: NHzkgb.png
+    ykgb: HTNykgb.png
+    kgh: NHkgh.png
+    zkgh: NHzkgh.png
+    ykgh: NHykgh.png
+    fhfht: 0xFF3582CA
+    cd3: 0xFF786BD5
+    #Mback: 0xff2e2e2e
+    zgb: 0x00
+  xrcd:
+    author: from sougou
+    name: "炫彩"
+    back_color: 0xffeeeeee
+    text_color: 0xff333333
+    comment_text_color: 0xFF4AD1C3
+    hilited_key_back_color: XCkeyAH.png
+    hilited_off_key_back_color: XCkeyCH.png
+    hilited_on_key_back_color: XCkeyCH.png
+    key_back_color: XCkeyA.png
+    key_symbol_color: 0xff919191
+    off_key_back_color: XCgnb.png
+    on_key_back_color: 0x00
+    789B: XCkey.png
+    A_: XCkeyA.png
+    B_: XCkeyB.png
+    C_: XCkeyC.png
+    AAH: XCkeyAH.png
+    BBH: XCkeyBH.png
+    CCH: XCkeyCH.png
+    szhct: 0xFF4AD1C3
+    bdh: XCkeyBH.png
+    hsh: XCkeyBH.png
+    szh: XCkeyAH.png
+    kgb: XCkgb.png
+    zkgb: XCzkgb.png
+    ykgb: XCykgb.png
+    kgh: XCkgbH.png
+    zkgh: XCzkgh.png
+    ykgh: XCykgh.png
+    hch: XCkeyCH.png
+    cd2: 0xffB3D743
+    cd3: 0xffE69A83
+    Mback: 0xffeeeeee
+    zgb: 0x00
+
+# 键盘布局
+preset_keyboards:
+  default:
+    ascii_mode: 0
+    author: "flypy.com"
+    lock: true
+    ascii_keyboard: letter  #指定密码键盘
+    height: *VJG
+    horizontal_gap: *VJL
+    vertical_gap: *VJH
+    round_corner: *VJY
+    key_text_offset_y: *DtextY
+    key_symbol_offset_y: *DsymY
+    key_hint_offset_y: *DhintY
+    key_press_offset_x: 0
+    key_press_offset_y: 3
+    key_symbol_offset_x: *DsymX
+    keyboard_back_color: Dback
+    label_transform: uppercase #uppercase|none 中文模式下的字母标签自动大写
+    keys:
+      # 第一行
+      - {click: q, long_click: 1, swipe_up: "(", key_text_color: AAT1, key_symbol_color: AAS, key_back_color: A_Q, hilited_key_back_color: AAH}
+      - {click: w, long_click: 2, swipe_up: ")", key_text_color: AAT1, key_symbol_color: AAS, key_back_color: A_W, hilited_key_back_color: BBH}
+      - {click: e, long_click: 3, swipe_up: "[", key_text_color: AAT2, key_symbol_color: AAS, key_back_color: A_E, hilited_key_back_color: CCH}
+      - {click: r, long_click: 4, swipe_up: "]", key_text_color: AAT2, key_symbol_color: AAS, key_back_color: A_R, hilited_key_back_color: AAH}
+      - {click: t, long_click: 5, swipe_up: "{", key_text_color: AAT3, key_symbol_color: AAS, key_back_color: A_T, hilited_key_back_color: BBH}
+      - {click: y, long_click: 6, swipe_up: "}", key_text_color: AAT4, key_symbol_color: AAS, key_back_color: A_Y, hilited_key_back_color: CCH}
+      - {click: u, long_click: 7, swipe_up: "<", key_text_color: AAT5, key_symbol_color: AAS, key_back_color: A_U, hilited_key_back_color: AAH}
+      - {click: i, long_click: 8, swipe_up: ">", key_text_color: AAT5, key_symbol_color: AAS, key_back_color: A_I, hilited_key_back_color: BBH}
+      - {click: o, long_click: Left, swipe_up: 9, key_text_color: AAT6, key_symbol_color: AAS, key_back_color: A_O, hilited_key_back_color: CCH}
+      - {click: p, long_click: Right, swipe_up: 0, key_text_color: AAT6, key_symbol_color: AAS, key_back_color: A_P, hilited_key_back_color: AAH}
+      # 第二行
+      - {click: a, long_click: select_all, key_text_color: zyt, key_back_color: zyb, key_symbol_color: zyt, hilited_key_text_color: zyt, hilited_key_back_color: zyb, hilited_key_symbol_color: zyt, width: 5}
+      - {click: a, long_click: select_all, key_text_color: AAT1, key_symbol_color: AAS, key_back_color: A_A, hilited_key_back_color: AAH}
+      - {click: s, long_click: "^", key_text_color: AAT1, key_symbol_color: AAS, key_back_color: A_S, hilited_key_back_color: BBH}
+      - {click: d, long_click: ".", swipe_up: Date, key_text_color: AAT2, key_symbol_color: AAS, key_back_color: A_D, hilited_key_back_color: CCH}
+      - {click: f, long_click: "!", swipe_up: Time, key_text_color: AAT2, key_symbol_color: AAS, key_back_color: A_F, hilited_key_back_color: AAH}
+      - {click: g, long_click: K_edit, swipe_up: Hide, key_text_color: AAT3, key_symbol_color: AAS, key_back_color: A_G, hilited_key_back_color: BBH}
+      - {click: h, long_click: "_", swipe_up: "-", key_text_color: AAT4, key_symbol_color: AAS, key_back_color: A_H, hilited_key_back_color: CCH}
+      - {click: j, long_click: "#", swipe_up: "*", key_text_color: AAT5, key_symbol_color: AAS, key_back_color: A_J, hilited_key_back_color: AAH}
+      - {click: k, long_click: DeleteCandidate, swipe_up: '"', key_text_color: AAT5, key_symbol_color: AAS, key_back_color: A_K, hilited_key_back_color: BBH}
+      - {click: l, long_click: "'", key_text_color: AAT6, key_symbol_color: AAS, key_back_color: A_L, hilited_key_back_color: CCH}
+      - {click: l, long_click: "'", key_text_color: zyt, key_back_color: zyb, key_symbol_color: zyt, hilited_key_text_color: zyt, hilited_key_back_color: zyb, hilited_key_symbol_color: zyt, width: 5}
+      # 第三行
+      - {click: Shift_L, swipe_up: DelH, width: 15, key_text_color: SHt}
+      - {click: z, long_click: "`", key_text_color: AAT1, key_symbol_color: AAS, key_back_color: A_Z, hilited_key_back_color: AAH}
+      - {click: x, long_click: cut, key_text_color: AAT1, key_symbol_color: AAS, key_back_color: A_X, hilited_key_back_color: BBH}
+      - {click: c, long_click: copy, key_text_color: AAT2, key_symbol_color: AAS, key_back_color: A_C, hilited_key_back_color: CCH}
+      - {click: v, long_click: paste, key_text_color: AAT2, key_symbol_color: AAS, key_back_color: A_V, hilited_key_back_color: AAH}
+      - {click: b, long_click: "@", swipe_up: "·", key_text_color: AAT3, key_symbol_color: AAS, key_back_color: A_B, hilited_key_back_color: BBH}
+      - {click: n, long_click: "/", swipe_up: "\\", key_text_color: AAT4, key_symbol_color: AAS, key_back_color: A_N, hilited_key_back_color: CCH}
+      - {click: m, long_click: ":", key_text_color: AAT5, key_symbol_color: AAS, key_back_color: A_M, hilited_key_back_color: AAH}
+      - {click: BackSpace, swipe_up: Escape, swipe_left: Candidate_switch, key_back_color: hsb, hilited_key_back_color: hsh, key_text_color: hst, hilited_key_text_color: hsht, width: 15}
+      # 第四行i
+      - {height: *VJM, click: K_symbols123, width: *SBK, composing: DZHC, key_symbol_offset_x: 16, long_click: K_menu, swipe_up: Menu, key_back_color: szb, key_text_color: szt, key_symbol_color: szs, hilited_key_back_color: szh, hilited_key_symbol_color: szhs} #方案选择
+      - {click: ",", label: "  ，", width: *SBK, composing: delimiterD, key_symbol_offset_x: 16, long_click: "?", key_back_color: bdb, key_text_color: bdt, key_symbol_color: bds, hilited_key_back_color: bdh, hilited_key_text_color: bdht, hilited_key_symbol_color: bdhs}
+      - {click: space, width: *KGK, key_text_size: 9, long_click: Mode_switch, swipe_left: Left, swipe_right: Right, key_back_color: zkgb, key_text_offset_y: 2, key_text_color: 0x00, hilited_key_text_color: 0x00, hilited_key_symbol_color: 0x00, key_symbol_color: 0x00, hilited_key_back_color: zkgh}
+      - {click: ";", composing: space, width: *FHK, key_text_size: 9, long_click: Mode_switch, key_text_offset_y: 2, key_symbol_offset_y: 6, key_symbol_offset_x: 0, key_back_color: ykgb, key_text_color: ykgt, hilited_key_text_color: kght, key_symbol_color: kgs, hilited_key_symbol_color: kghs, hilited_key_back_color: ykgh}
+      - {click: Return, width: *HCK, key_symbol_offset_x: 20, long_click: Color_settings, swipe_up: Theme_settings, key_back_color: hcb, key_text_color: hct, key_symbol_color: hcs, hilited_key_back_color: hch, hilited_key_text_color: hcht, hilited_key_symbol_color: hchs}
+    name: "默认26键"
+    width: 10
+  defaultVJ:
+    __include: /preset_keyboards/default
+    __patch:
+        "keys/@0/hint": iu
+        "keys/@1/hint": ei
+        "keys/@2/hint": e
+        "keys/@3/hint": "uan"
+        "keys/@4/hint": "ue ve"
+        "keys/@5/hint": "un"
+        "keys/@6/hint": "sh u"
+        "keys/@7/hint": "ch i"
+        "keys/@8/hint": "o uo"
+        "keys/@9/hint": ie
+        "keys/@11/hint": a
+        "keys/@12/hint": "(i)ong"
+        "keys/@13/hint": ai
+        "keys/@14/hint": en
+        "keys/@15/hint": eng
+        "keys/@16/hint": ang
+        "keys/@17/hint": an
+        "keys/@18/hint": "ing uai"
+        "keys/@19/hint": "(i)uang"
+        "keys/@22/hint": ou
+        "keys/@23/hint": "ia ua"
+        "keys/@24/hint": ao
+        "keys/@25/hint": "zh ui v"
+        "keys/@26/hint": in
+        "keys/@27/hint": iao
+        "keys/@28/hint": ian
+        "keys/@0/key_symbol_color": 
+        "keys/@1/key_symbol_color": 
+        "keys/@2/key_symbol_color": 
+        "keys/@3/key_symbol_color": 
+        "keys/@4/key_symbol_color": 
+        "keys/@5/key_symbol_color": 
+        "keys/@6/key_symbol_color": 
+        "keys/@7/key_symbol_color": 
+        "keys/@8/key_symbol_color": 
+        "keys/@9/key_symbol_color": 
+        "keys/@11/key_symbol_color": 
+        "keys/@12/key_symbol_color": 
+        "keys/@13/key_symbol_color": 
+        "keys/@14/key_symbol_color": 
+        "keys/@15/key_symbol_color": 
+        "keys/@16/key_symbol_color": 
+        "keys/@17/key_symbol_color": 
+        "keys/@18/key_symbol_color": 
+        "keys/@19/key_symbol_color": 
+        "keys/@22/key_symbol_color": 
+        "keys/@23/key_symbol_color": 
+        "keys/@24/key_symbol_color": 
+        "keys/@25/key_symbol_color": 
+        "keys/@26/key_symbol_color": 
+        "keys/@27/key_symbol_color": 
+        "keys/@28/key_symbol_color": 
+    keyboard_back_color: Vback
+    name: "小鹤双拼助记"
+    width: 10
+  letter:
+    __include: /preset_keyboards/default
+    __patch:
+        "keys/@0/long_click": "$"
+        "keys/@1/long_click": "*"
+        "keys/@2/long_click": "("
+        "keys/@3/long_click": ")"
+        "keys/@4/long_click": "{"
+        "keys/@5/long_click": "}"
+        "keys/@6/long_click": "["
+        "keys/@7/long_click": "]"
+        "keys/@8/long_click": "%"
+        "keys/@9/long_click": "~"
+        "keys/@15/long_click": "="
+        "keys/@23/long_click": "+"
+        "keys/@24/long_click": "-"
+        "keys/@0/key_symbol_color": #注销AAS的色值，用于取消透明色
+        "keys/@1/key_symbol_color": 
+        "keys/@2/key_symbol_color": 
+        "keys/@3/key_symbol_color": 
+        "keys/@4/key_symbol_color": 
+        "keys/@5/key_symbol_color": 
+        "keys/@6/key_symbol_color": 
+        "keys/@7/key_symbol_color": 
+        "keys/@8/key_symbol_color": 
+        "keys/@9/key_symbol_color": 
+        "keys/@11/key_symbol_color": 
+        "keys/@12/key_symbol_color": 
+        "keys/@13/key_symbol_color": 
+        "keys/@14/key_symbol_color": 
+        "keys/@15/key_symbol_color": 
+        "keys/@16/key_symbol_color": 
+        "keys/@17/key_symbol_color": 
+        "keys/@18/key_symbol_color": 
+        "keys/@19/key_symbol_color": 
+        "keys/@22/key_symbol_color": 
+        "keys/@23/key_symbol_color": 
+        "keys/@24/key_symbol_color": 
+        "keys/@25/key_symbol_color": 
+        "keys/@26/key_symbol_color": 
+        "keys/@27/key_symbol_color": 
+        "keys/@28/key_symbol_color": 
+        "keys/@0/key_text_color": 
+        "keys/@1/key_text_color": 
+        "keys/@2/key_text_color": 
+        "keys/@3/key_text_color": 
+        "keys/@4/key_text_color": 
+        "keys/@5/key_text_color": 
+        "keys/@6/key_text_color": 
+        "keys/@7/key_text_color": 
+        "keys/@8/key_text_color": 
+        "keys/@9/key_text_color": 
+        "keys/@11/key_text_color": 
+        "keys/@12/key_text_color": 
+        "keys/@13/key_text_color": 
+        "keys/@14/key_text_color": 
+        "keys/@15/key_text_color": 
+        "keys/@16/key_text_color": 
+        "keys/@17/key_text_color": 
+        "keys/@18/key_text_color": 
+        "keys/@19/key_text_color": 
+        "keys/@22/key_text_color": 
+        "keys/@23/key_text_color": 
+        "keys/@24/key_text_color": 
+        "keys/@25/key_text_color": 
+        "keys/@26/key_text_color": 
+        "keys/@27/key_text_color": 
+        "keys/@28/key_text_color": 
+        "keys/@30/click": K_number
+        "keys/@32/click": space2
+        "keys/@32/long_click": 
+    ascii_mode: 1
+    lock: false
+    keyboard_back_color: Lback
+    name: "letter26键"
+  number:
+    ascii_mode: 1
+    author: flypy.com
+    height: *VJG
+    horizontal_gap: *VJL
+    vertical_gap: *VJH
+    round_corner: *VJY
+    key_text_offset_y: *DtextY
+    keys:
+      - {click: "+"}
+      - {click: 1}
+      - {click: 2}
+      - {click: 3}
+      - {click: K_letter, key_back_color: szgnb, hilited_key_back_color: szgnh}
+      - {click: "-"}
+      - {click: 4}
+      - {click: 5}
+      - {click: 6}
+      - {click: paste2, key_back_color: szgnb, hilited_key_back_color: szgnh}
+      - {click: "*"}
+      - {click: 7}
+      - {click: 8}
+      - {click: 9}
+      - {click: BackSpace, key_back_color: szgnb, hilited_key_back_color: szgnh}
+      - {height: *VJM, click: "/"}
+      - {click: ","}
+      - {click: 0}
+      - {click: "."}
+      - {click: Return, key_back_color: szhcb, key_text_color: szhct, hilited_key_back_color: szhch, hilited_key_text_color: szhcht}
+    keyboard_back_color: Nback
+    name: "数字"
+    width: 20
+  edit:
+    ascii_mode: 1
+    author: flypy.com
+    height: *VJG
+    horizontal_gap: *VJL
+    vertical_gap: *VJH
+    round_corner: *VJY
+    keyboard_back_color: Eback
+    keys:
+      - {click: select_all, key_back_color: xdbdb}
+      - {click: undo, key_back_color: xdbdb}
+      - {click: Up, key_back_color: xdbdb}
+      - {click: redo, key_back_color: xdbdb}
+      - {click: K_back, key_back_color: xdgnb}
+      - {click: cut, key_back_color: xdbdb}
+      - {click: Left, key_back_color: xdbdb}
+      - {click: Shift1, key_back_color: xdbdb}
+      - {click: Right, key_back_color: xdbdb}
+      - {click: space1, key_back_color: xdgnb}
+      - {click: copy, key_back_color: xdbdb}
+      - {click: Home, key_back_color: xdbdb}
+      - {click: Down, key_back_color: xdbdb}
+      - {click: End, key_back_color: xdbdb}
+      - {click: BackSpace, key_back_color: xdgnb}
+      - {height: *VJM, click: paste, key_back_color: xdbdb}
+      - {click: Tab, key_back_color: xdbdb}
+      - {click: select_H, key_back_color: xdbdb}
+      - {click: Delete, key_back_color: xdbdb}
+      - {click: Return1, key_back_color: xdhcb, key_text_color: xdhct, hilited_key_back_color: xdhch, hilited_key_text_color: xdhcht}
+    name: "编辑"
+    width: 20
+  menu:
+    ascii_mode: 0
+    author: "flypy.com"
+    height: *VJG
+    horizontal_gap: *VJL
+    vertical_gap: *VJH
+    round_corner: *VJY
+    keyboard_back_color: Mback
+    keys: 
+      # 第一行
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: LLQ, hint: 浏览器, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: XHIX, hint: 鹤形, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: HDSS, hint: 汉典, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      # 第二行
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: XMJSQ, hint: 计算器, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: M2T, hint: 编辑, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: VOICE_ASSIST, hint: 语音, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      #第三行
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: Full_Half1, hint: 全半角, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: simplification1, hint: 简繁, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: Punct_switch1, hint: 中英, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      # 第四行
+      - {height: *VJM, click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: Settings, hint: 设置, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: Deploy, hint: 部署, key_back_color: xdbdb, key_hint_offset_y: *MhintY, key_text_offset_y: *MtextY}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+      - {click: K_back1, hint: "______", key_hint_offset_y: *MhintY, key_text_offset_y: *MtextBY, key_text_color: cdh, key_symbol_color: cdh, key_back_color: xdbdb, hilited_key_text_color: cdh, hilited_key_back_color: xdbdb}
+      - {click: "", width: 10, key_back_color: xdbdb, hilited_key_back_color: xdbdb}
+    name: "选单"
+    width: 20
+# 符号键盘
+  symbolsSZ:
+    ascii_mode: 1
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      - {click: "+", long_click: "¥", key_text_offset_x: 3, key_symbol_offset_x: -15, key_symbol_offset_y: 12, key_symbol_color: key_symbol_color}
+      - {click: 1}
+      - {click: 2}
+      - {click: 3}
+      - {click: K_back, key_back_color: szgnb, hilited_key_back_color: szgnh}
+      - {click: "-", long_click: "%", key_text_offset_x: 3, key_symbol_offset_x: -15, key_symbol_offset_y: 12, key_symbol_color: key_symbol_color}
+      - {click: 4}
+      - {click: 5}
+      - {click: 6}
+      - {click: space1, key_back_color: szgnb, hilited_key_back_color: szgnh}
+      - {click: "*", long_click: "#", key_text_offset_x: 3, key_symbol_offset_x: -15, key_symbol_offset_y: 12, key_symbol_color: key_symbol_color}
+      - {click: 7}
+      - {click: 8}
+      - {click: 9}
+      - {click: "=", key_back_color: szgnb, key_text_color: off_key_text_color, hilited_key_text_color: hilited_off_key_text_color, hilited_key_back_color: szgnh}
+      - {click: "/", long_click: ":", symbol_text_size: 12, key_text_offset_x: 3, key_symbol_offset_x: -15, key_symbol_offset_y: 12, key_symbol_color: key_symbol_color}
+      - {click: ","}
+      - {click: 0}
+      - {click: "."}
+      - {click: Return1, key_back_color: szhcb, key_text_color: szhct, hilited_key_back_color: szhch, hilited_key_text_color: szhcht}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, long_click: K_backCD, width: 12, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsEN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsCN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsBQ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsTS, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsXH, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "数字1"
+    width: 20
+  symbolsEN:
+    ascii_mode: 1
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      #第一行
+      - {click: ","}
+      - {click: "."}
+      - {click: "?"}
+      - {click: "!"}
+      - {click: ":"}
+      - {click: '"'}
+      - {click: "'"}
+      - {click: K_back, key_text_color: fhfht, key_back_color: fhfhb, hilited_key_back_color: fhfhh} #回删
+      #第二行
+      - {click: "@"}
+      - {click: '`'}
+      - {click: "#"}
+      - {click: "%"}
+      - {click: "_"}
+      - {click: "&"}
+      - {click: "^"}
+      - {click: "\\"}
+      #第三行
+      - {click: "{"}
+      - {click: "}"}
+      - {click: "("}
+      - {click: ")"}
+      - {click: "["}
+      - {click: "]"}
+      - {click: "<"}
+      - {click: ">"}
+      #第四行
+      - {click: "$"}
+      - {click: "~"}
+      - {click: "+"}
+      - {click: "-"}
+      - {click: "*"}
+      - {click: "/"}
+      - {click: "="}
+      - {click: ";"}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #数字
+      - {click: K_symbolsEN2, long_click: K_backCDY, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #英文
+      - {click: K_symbolsCN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #中文
+      - {click: K_symbolsBQ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #表情
+      - {click: K_symbolsTS, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #特殊
+      - {click: K_symbolsXH, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #序号
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "英文"
+    width: 12.5
+  symbolsEN2:
+    ascii_mode: 1
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      #第一行
+      - {click: "Ⓐ"}
+      - {click: "Ⓑ"}
+      - {click: "Ⓒ"}
+      - {click: "Ⓓ"}
+      - {click: "Ⓔ"}
+      - {click: "Ⓕ"}
+      - {click: "Ⓖ"}
+      - {click: K_back, key_text_color: fhfht, key_back_color: fhfhb, hilited_key_back_color: fhfhh} #回删
+      - {click: "Ⓗ"}
+      - {click: "Ⓘ"}
+      - {click: "Ⓙ"}
+      - {click: 'Ⓚ'}
+      - {click: "Ⓛ"}
+      - {click: "Ⓜ"}
+      - {click: "Ⓝ"}
+      - {click: "Ⓞ"}
+      - {click: "Ⓟ"}
+      - {click: "Ⓠ"}
+      - {click: "Ⓡ"}
+      - {click: "Ⓢ"}
+      - {click: "Ⓣ"}
+      - {click: "Ⓤ"}
+      - {click: 'Ⓥ'}
+      - {click: 'Ⓦ'}
+      - {click: "Ⓧ"}
+      - {click: "Ⓨ"}
+      - {click: "Ⓩ"}
+      - {click: "|"}
+      - {click: "️α"}
+      - {click: "β"}
+      - {click: "‍γ"}
+      - {click: "‍"}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #数字
+      - {click: K_symbolsEN, long_click: K_backCDZ, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #英文
+      - {click: K_symbolsCN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #中文
+      - {click: K_symbolsBQ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #表情
+      - {click: K_symbolsTS, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #特殊
+      - {click: K_symbolsXH, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb} #序号
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "英文2"
+    width: 12.5
+  symbolsCN:
+    ascii_mode: 0
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      - {click: "，"}
+      - {click: "。"}
+      - {click: "？"}
+      - {click: "！"}
+      - {click: "："}
+      - {click: "“”{Left}"}
+      - {click: "‘’{Left}"}
+      - {click: K_back, key_text_color: fhfht, key_back_color: fhfhb, hilited_key_back_color: fhfhh} #回删
+      - {click: "@"}
+      - {click: "、"}
+      - {click: "＃"}
+      - {click: "％"}
+      - {click: "＊"}
+      - {click: "＆"}
+      - {click: "……"}
+      - {click: "——"}
+      - {click: "［］{Left}"}
+      - {click: "【】{Left}"}
+      - {click: "「」{Left}"}
+      - {click: "『』{Left}"}
+      - {click: "（）{Left}"}
+      - {click: "《》{Left}"}
+      - {click: "〈〉{Left}"}
+      - {click: "〔〕{Left}"}
+      - {click: "￥"}
+      - {click: "～"}
+      - {click: "＋"}
+      - {click: "－"}
+      - {click: "×"}
+      - {click: "÷"}
+      - {click: "＝"}
+      - {click: "；"}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsEN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsCN, long_click: K_backCD, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsBQ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsTS, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsXH, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "中文"
+    width: 12.5
+  emoji:
+    ascii_mode: 1
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      #第一行
+      - {click: "😍"}
+      - {click: "😘"}
+      - {click: "🥰"}
+      - {click: "🤣"}
+      - {click: "😊"}
+      - {click: "😂"}
+      - {click: "😜"}
+      - {click: K_back, key_text_color: fhfht, key_back_color: fhfhb, hilited_key_back_color: fhfhh} #回删
+      #第二行
+      - {click: "😏"}
+      - {click: "😣"}
+      - {click: "😐"}
+      - {click: "🤓"}
+      - {click: "🙄"}
+      - {click: "🤔"}
+      - {click: "😇"}
+      - {click: "‍😛"}
+      #第三行
+      - {click: "🌚"}
+      - {click: "😴"}
+      - {click: "😭"}
+      - {click: "‍😠"}
+      - {click: "🤑"}
+      - {click: "🥺"}
+      - {click: "😥"}
+      - {click: "😱"}
+      #第四行
+      - {click: "🤫"}
+      - {click: "🤭"}
+      - {click: "‍😷"}
+      - {click: "🔥"}
+      - {click: "👍"}
+      - {click: "👌"}
+      - {click: "🙏"}
+      - {click: "❤"}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsEN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsCN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsBQ2, long_click: K_backCDY, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsTS, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsXH, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "Emoji"
+    width: 12.5
+  emoji2:
+    ascii_mode: 1
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      #第一行
+      - {click: "🌧"}
+      - {click: "🌹"}
+      - {click: "💅"}
+      - {click: "🍺"}
+      - {click: "⚽️"}
+      - {click: "🏓"}
+      - {click: "🏸"}
+      - {click: K_back, key_text_color: fhfht, key_back_color: fhfhb, hilited_key_back_color: fhfhh} #回删
+      #第二行
+      - {click: "🇨🇳"}
+      - {click: "🐂"}
+      - {click: "💔"}
+      - {click: "🎂"}
+      - {click: "🖕"}
+      - {click: "👏"}
+      - {click: "✌"}
+      - {click: "☕"}
+      #第三行
+      - {click: "🐦"}
+      - {click: "💤"}
+      - {click: "🎏"}
+      - {click: "🍉"}
+      - {click: "🍦"}
+      - {click: "🍣"}
+      - {click: "🍚"}
+      - {click: "🍎"}
+       #第四行
+      - {click: "🍟"}
+      - {click: "🚴🏻"}
+      - {click: "🏇"}
+      - {click: "🎧"}
+      - {click: "💣"}
+      - {click: "🎲"}
+      - {click: "🎯"}
+      - {click: "🐾"}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsEN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsCN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsBQ1, long_click: K_backCDZ, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsTS, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsXH, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "Emoji2"
+    width: 12.5
+  symbolsTS:
+    ascii_mode: 1
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      - {click: "☰"}
+      - {click: "☷"}
+      - {click: "☼"}
+      - {click: "۞"}
+      - {click: "▷"}
+      - {click: "◁"}
+      - {click: "␣"}
+      - {click: K_back, key_text_color: fhfht, key_back_color: fhfhb, hilited_key_back_color: fhfhh} #回删
+      - {click: "⟲"}
+      - {click: "🎤"}
+      - {click: "⌫"}
+      - {click: "↩"}
+      - {click: "⚙"}
+      - {click: "✍"}
+      - {click: "✎"}
+      - {click: "🌐"}
+      - {click: "☑"}
+      - {click: "✁"}
+      - {click: "❐"}
+      - {click: "▣"}
+      - {click: "⏍"}
+      - {click: "◲"}
+      - {click: "◰"}
+      - {click: "☐"}
+      - {click: "☩"}
+      - {click: "↔"}
+      - {click: "↑"}
+      - {click: "↓"}
+      - {click: "←"}
+      - {click: "→"}
+      - {click: "↶"}
+      - {click: "↷"}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsEN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsCN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsBQ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsTS2, long_click: K_backCDY, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsXH, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "特殊"
+    width: 12.5
+  symbolsTS2:
+    ascii_mode: 1
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      - {click: "⚿"}
+      - {click: "ϟ"}
+      - {click: "﹀"}
+      - {click: "☒"}
+      - {click: "✡"}
+      - {click: "❀"}
+      - {click: "◫"}
+      - {click: K_back, key_text_color: fhfht, key_back_color: fhfhb, hilited_key_back_color: fhfhh} #回删
+      - {click: "◖"}
+      - {click: "●"}
+      - {click: "▲"}
+      - {click: "▼"}
+      - {click: "▶"}
+      - {click: "◀"}
+      - {click: "«"}
+      - {click: "»"}
+      - {click: "↖"}
+      - {click: "↗"}
+      - {click: "↙"}
+      - {click: "↘"}
+      - {click: "⇅"}
+      - {click: "⇆"}
+      - {click: "⇤"}
+      - {click: "⇥"}
+      - {click: "♩"}
+      - {click: "♪"}
+      - {click: "♫"}
+      - {click: "♬"}
+      - {click: "§"}
+      - {click: "°"}
+      - {click: "♭"}
+      - {click: "♯"}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsEN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsCN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsBQ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsTS, long_click: K_backCDZ, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsXH, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "特殊2"
+    width: 12.5
+  symbolsXH:
+    ascii_mode: 1
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      - {click: "⒈"}
+      - {click: "⒉"}
+      - {click: "⒊"}
+      - {click: "⒋"}
+      - {click: "⒌"}
+      - {click: "⒍"}
+      - {click: "⒎"}
+      - {click: K_back, key_text_color: fhfht, key_back_color: fhfhb, hilited_key_back_color: fhfhh} #回删
+      - {click: "⒏"}
+      - {click: "⒐"}
+      - {click: "⒑"}
+      - {click: "⒒"}
+      - {click: "⒓"}
+      - {click: "⒔"}
+      - {click: "⒕"}
+      - {click: "⒖"}
+      - {click: "⒗"}
+      - {click: "⒘"}
+      - {click: "⒙"}
+      - {click: "⒚"}
+      - {click: "⒛"}
+      - {click: "－"}
+      - {click: "⑨"}
+      - {click: "⑩"}
+      - {click: "①"}
+      - {click: "②"}
+      - {click: "③"}
+      - {click: "④"}
+      - {click: "⑤"}
+      - {click: "⑥"}
+      - {click: "⑦"}
+      - {click: "⑧"}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsEN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsCN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsBQ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsTS, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsXH2, long_click: K_backCDY, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "序号"
+    width: 12.5
+  symbolsXH2:
+    ascii_mode: 1
+    author: flypy.com
+    key_text_offset_y: *DtextY
+    keys:
+      - {click: "⑴"}
+      - {click: "⑵"}
+      - {click: "⑶"}
+      - {click: "⑷"}
+      - {click: "⑸"}
+      - {click: "⑹"}
+      - {click: "⑺"}
+      - {click: K_back, key_text_color: fhfht, key_back_color: fhfhb, hilited_key_back_color: fhfhh} #回删
+      - {click: "⑻"}
+      - {click: "⑼"}
+      - {click: "⑽"}
+      - {click: "⑾"}
+      - {click: "⑿"}
+      - {click: "⒀"}
+      - {click: "⒁"}
+      - {click: "⒂"}
+      - {click: "⒃"}
+      - {click: "⒄"}
+      - {click: "⒅"}
+      - {click: "⒆"}
+      - {click: "⒇"}
+      - {click: "№"}
+      - {click: "Ⅸ"}
+      - {click: "Ⅹ"}
+      - {click: "Ⅰ"}
+      - {click: "Ⅱ"}
+      - {click: "Ⅲ"}
+      - {click: "Ⅳ"}
+      - {click: "Ⅴ"}
+      - {click: "Ⅵ"}
+      - {click: "Ⅶ"}
+      - {click: "Ⅷ"}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsSZ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsEN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsCN, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsBQ, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsTS, key_text_size: 12, key_text_color: cdt, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: K_symbolsXH, long_click: K_backCDZ, key_symbol_offset_y: *FHsymY, key_symbol_color: cdh, key_text_color: cdh, width: 12, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 6, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: BackSpace, width: 12, key_text_color: cdh, key_back_color: cdb, hilited_key_back_color: cdb}
+      - {click: "", width: 4, key_back_color: cdb, hilited_key_back_color: cdb}
+    name: "序号2"
+    width: 12.5
+android_keys:
+  name: [VoidSymbol, SOFT_LEFT, SOFT_RIGHT, HOME, BACK, CALL, ENDCALL,
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+    asterisk, numbersign, Up, Down, Left, Right, CENTER,
+    VOLUME_UP, VOLUME_DOWN, POWER, CAMERA, Clear,
+    a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,
+    comma, period, Alt_L, Alt_R, Shift_L, Shift_R, Tab, space,
+    SYM, EXPLORER, ENVELOPE, Return, BackSpace,
+    grave, minus, equal, bracketleft, bracketright, backslash, semicolon, apostrophe, slash, at,
+    NUM, HEADSETHOOK, FOCUS, plus, Menu, NOTIFICATION, Find,
+    MEDIA_PLAY_PAUSE, MEDIA_STOP, MEDIA_NEXT, MEDIA_PREVIOUS, MEDIA_REWIND, MEDIA_FAST_FORWARD, MUTE,
+    Page_Up, Page_Down, PICTSYMBOLS, Mode_switch,
+    BUTTON_A, BUTTON_B, BUTTON_C, BUTTON_X, BUTTON_Y, BUTTON_Z,
+    BUTTON_L1, BUTTON_R1, BUTTON_L2, BUTTON_R2,
+    BUTTON_THUMBL, BUTTON_THUMBR, BUTTON_START, BUTTON_SELECT, BUTTON_MODE,
+    Escape, Delete, Control_L, Control_R, Caps_Lock, Scroll_Lock, Meta_L, Meta_R,
+    function, Sys_Req, Pause, Home, End, Insert, Next,
+    MEDIA_PLAY, MEDIA_PAUSE, MEDIA_CLOSE, MEDIA_EJECT, MEDIA_RECORD,
+    F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,
+    Num_Lock, KP_0, KP_1, KP_2, KP_3, KP_4, KP_5, KP_6, KP_7, KP_8, KP_9,
+    KP_Divide, KP_Multiply, KP_Subtract, KP_Add, KP_Decimal, KP_Separator, KP_Enter, KP_Equal,
+    parenleft, parenright,
+    VOLUME_MUTE, INFO, CHANNEL_UP, CHANNEL_DOWN, ZOOM_IN, ZOOM_OUT,
+    TV, WINDOW, GUIDE, DVR, BOOKMARK, CAPTIONS, SETTINGS,
+    TV_POWER, TV_INPUT, STB_POWER, STB_INPUT, AVR_POWER, AVR_INPUT,
+    PROG_RED, PROG_GREEN, PROG_YELLOW, PROG_BLUE, APP_SWITCH,
+    BUTTON_1, BUTTON_2, BUTTON_3, BUTTON_4, BUTTON_5, BUTTON_6, BUTTON_7, BUTTON_8,
+    BUTTON_9, BUTTON_10, BUTTON_11, BUTTON_12, BUTTON_13, BUTTON_14, BUTTON_15, BUTTON_16,
+    LANGUAGE_SWITCH, MANNER_MODE, 3D_MODE, CONTACTS, CALENDAR, MUSIC, CALCULATOR,
+    Zenkaku_Hankaku, Eisu_toggle, Muhenkan, Henkan, Hiragana_Katakana, yen, RO, Kana_Lock,
+    ASSIST, BRIGHTNESS_DOWN, BRIGHTNESS_UP, MEDIA_AUDIO_TRACK,
+    SLEEP, WAKEUP, PAIRING, MEDIA_TOP_MENU, '11', '12', LAST_CHANNEL, TV_DATA_SERVICE, VOICE_ASSIST,
+    TV_RADIO_SERVICE, TV_TELETEXT, TV_NUMBER_ENTRY, TV_TERRESTRIAL_ANALOG, TV_TERRESTRIAL_DIGITAL,
+    TV_SATELLITE, TV_SATELLITE_BS, TV_SATELLITE_CS, TV_SATELLITE_SERVICE, TV_NETWORK, TV_ANTENNA_CABLE,
+    TV_INPUT_HDMI_1, TV_INPUT_HDMI_2, TV_INPUT_HDMI_3, TV_INPUT_HDMI_4,
+    TV_INPUT_COMPOSITE_1, TV_INPUT_COMPOSITE_2, TV_INPUT_COMPONENT_1, TV_INPUT_COMPONENT_2, TV_INPUT_VGA_1,
+    TV_AUDIO_DESCRIPTION, TV_AUDIO_DESCRIPTION_MIX_UP, TV_AUDIO_DESCRIPTION_MIX_DOWN,
+    TV_ZOOM_MODE, TV_CONTENTS_MENU, TV_MEDIA_CONTEXT_MENU, TV_TIMER_PROGRAMMING,
+    Help, NAVIGATE_PREVIOUS, NAVIGATE_NEXT, NAVIGATE_IN, NAVIGATE_OUT,
+    STEM_PRIMARY, STEM_1, STEM_2, STEM_3,
+    Pointer_UpLeft, Pointer_DownLeft, Pointer_UpRight, Pointer_DownRight,
+    MEDIA_SKIP_FORWARD, MEDIA_SKIP_BACKWARD, MEDIA_STEP_FORWARD, MEDIA_STEP_BACKWARD,
+    SOFT_SLEEP, CUT, COPY, PASTE,
+    SYSTEM_NAVIGATION_UP, SYSTEM_NAVIGATION_DOWN, SYSTEM_NAVIGATION_LEFT, SYSTEM_NAVIGATION_RIGHT,
+    A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+    exclam, quotedbl, dollar, percent, ampersand, colon, less, greater, question, asciicircum, underscore, braceleft, bar, braceright, asciitilde]
+  symbols: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!"$%&:<>?^_{|}~'
+  when:
+    ascii: 西文标签
+    paging: 翻页标签
+    has_menu: 菜单标签
+    composing: 输入状态标签
+    #always: 始终
+    #hover: 滑过
+    combo: 并击
+    click: 单按
+    long_click: 长按
+    #double_click: 双按
+    swipe_left: 左滑
+    swipe_right: 右滑
+    swipe_up: 上滑
+    swipe_down: 下滑
+  property:
+    width: 宽度
+    height: 高度
+    gap: 间隔
+    preview: 预览
+    hint: 提示
+    label: 标签
+    text: 文本
+    states: 状态标签
+    repeatable: 连续按键
+    functional: 功能键
+    shift_lock: Shift锁定 #ascii_long: 英文长按中文单按锁定, long: 长按锁定, click: 单按锁定
+  action:
+    command: 命令
+    option: 参数
+    select: 选择
+    toggle: 状态
+    send: 按键
+preset_keys:
+  # 安卓
+  BRIGHTNESS_DOWN: {label: 亮度-, send: BRIGHTNESS_DOWN}
+  BRIGHTNESS_UP: {label: 亮度+, send: BRIGHTNESS_UP}
+  CALENDAR: {label: 日历, functional: false, send: CALENDAR}
+  CONTACTS: {label: 电话簿, functional: false, send: CONTACTS}
+  ENVELOPE: {label: 信箱, send: ENVELOPE}
+  EXPLORER: {label: 浏览器, functional: false, send: EXPLORER}
+  MUSIC: {label: 音乐, send: MUSIC}
+  POWER: {label: 电源, send: POWER}
+  SEARCH: {label: 搜寻, send: Find}
+  SLEEP: {label: 休眠, send: SLEEP}
+  VOICE_ASSIST: {label: '🎤', functional: false, send: VOICE_ASSIST}
+  VOICE_ASSIST1: {label: ' ', functional: false, send: VOICE_ASSIST}
+  VOLUME_DOWN: {label: 音量-, send: VOLUME_DOWN}
+  VOLUME_UP: {label: 音量+, send: VOLUME_UP}
+  VOLUME_MUTE: {label: 静音, send: VOLUME_MUTE}
+  # 编辑
+  Shift_R: {label: Enter, send: Shift_R}
+  Caps_Lock: {label: Caps, send: Caps_Lock}
+  Shift_L: {functional: true, label: Shift, send: Shift_L, shift_lock: ascii_long}  # 中文状态一次锁定，英文状态长按锁定
+  Shift_L1: {functional: true, label: Shift, send: Shift_L, shift_lock: long}  # 中文状态长按锁定
+  Shift1: {functional: false, label: ☩, preview: ☩, send: Shift_L, shift_lock: click}  # 英文状态一次锁定
+  Return: {label: Enter, preview: ↩, send: Return}
+  Return1: {label: Enter, repeatable: true, preview: ↩, send: Return}
+  Hide: {label: ﹀, send: BACK}
+  BackSpace: {label: ⌫, preview: ⌫, repeatable: true, send: BackSpace}
+  BackSpace1: {label: ⌫, preview: ⌫, repeatable: true, functional: false, send: BackSpace}
+  space: {repeatable: false, preview: ␣, functional: false, send: space}
+  space1: {repeatable: true, preview: ␣, label: ␣, functional: true, send: space}
+  space2: {repeatable: true, preview: ␣, label: " ", functional: false, send: space}
+  Clear: {label: 全清, send: Clear}
+  Escape: {label: Esc, functional: false, send: Escape}
+  Home: {label: ⇤, send: Home, functional: false}
+  Insert: {label: Ins, send: Insert}
+  Delete: {label: Del, send: Delete, repeatable: true, functional: false}
+  DelH: {label: "Del↔", functional: false, text: "{End}{Shift+Home}{Delete}"}  #删除行
+  End: {label: ⇥, send: End, functional: false}
+  Page_Up: {label: ◁, send: Page_Up, functional: false}
+  Page_Down: {label: ▷, send: Page_Down, functional: false}
+  Left: {label: ←, send: Left, repeatable: true, functional: false}
+  Left1: {label: ⇦, send: Control+Left, repeatable: true, functional: false}
+  Left2: {label: " ", send: Left, repeatable: true, functional: false}
+  Down: {label: ↓, send: Down, repeatable: true, functional: false}
+  Up: {label: ↑, send: Up, repeatable: true, functional: false}
+  Right: {label: →, send: Right, repeatable: true, functional: false}
+  Right1: {label: ⇨, send: Control+Right, repeatable: true, functional: false}
+  Right2: {label: " ", send: Right, repeatable: true, functional: false}
+  select_all: {label: ☑, functional: false, send: Control+a}
+  select_all1: {label: " ", functional: false, send: Control+a}
+  Tab1: {label: Tab, functional: false, preview: '↹', repeatable: false, text: '	'}
+  cut: {label: ✁, functional: false, send: Control+x}
+  cut1: {label: " ", functional: false, send: Control+x}
+  select_H: {label: ↔, functional: false, text: "{End}{Shift+Home}"}  #选择行
+  copy: {label: ❐, functional: false, send: Control+c}
+  copy1: {label: " ", functional: false, send: Control+c}
+  paste: {label: ▣, functional: false, send: Control+v}
+  paste2: {label: ▣, functional: true, send: Control+v}
+  paste1: {label: " ", functional: false, send: Control+v}
+  paste_text: {label: 贴上文本, send: Control+Shift+Alt+v} #>=Android 6.0
+  share_text: {label: 分享, send: Control+Alt+s} #>=Android 6.0
+  redo: {label: ↷, functional: false, send: Control+y}
+  undo: {label: ↶, functional: false, send: Control+z}
+  delimiterJ: {label: 次选, send: dollar}
+  delimiterD: {label: 次选, send: bar}
+  JUHC: {label: '  。', send: period}
+  DZHC: {label: '  ，', send: comma}
+  # rime组合键
+  F4: {label: 方案菜单, send: F4} 
+  BackToPreviousSyllable: {label: 删音节, send: Control+BackSpace}
+  CommitRawInput: {label: 编码, send: Control+Return}
+  CommitScriptText: {label: 编码, send: Shift+Return}
+  CommitComment: {label: 编码, send: Control+Shift+Return}
+  DeleteCandidate: {label: 删词, send: Control+Delete, functional: false}
+  # rime状态
+  Mode_switch: {toggle: ascii_mode, functional: false, send: Mode_switch, states: [ 中文, En ]}
+  Full_Half: {toggle: full_shape, send: Mode_switch, states: [ ◖, ● ]}
+  Full_Half1: {toggle: full_shape, functional: false, text: "{Full_Half}{K_back}", send: Mode_switch, states: [ ◖, ● ]}
+  simplification: {toggle: simplification, send: Mode_switch, states: [ 简体, 繁体 ]}
+  simplification1: {toggle: simplification, functional: false, text: "{simplification}{K_back}", send: Mode_switch, states: [ ▸Ⓕ, Ⓙ◂]}
+  Charset_switch: {toggle: extended_charset, send: Mode_switch, states: [ 常用, 增广 ]}
+  Punct_switch: {toggle: ascii_punct, send: Mode_switch, states: [ "，。", " ,　. " ]}
+  Punct_switch1: {toggle: ascii_punct, functional: false, text: "{Punct_switch}{K_back}", send: Mode_switch, states: [ " ，。", ", ." ]}
+  Candidate_switch: {toggle: _hide_candidate, send: Mode_switch, states: [ ☐, ─ ]}
+  Candidate_switch1: {toggle: _hide_candidate, functional: false, text: "{Candidate_switch}{K_back}", send: Mode_switch, states: [ ☐, ─ ]}
+  Comment_switch: {toggle: _hide_comment, send: Mode_switch, states: [ ZI.., "ZI  "]}
+  Color_switch: {label: ◲, functional: false, send: PROG_RED} #配色
+  Hint_switch: {toggle: _hide_key_hint, send: Mode_switch, states: [ ≑, ≟]}
+  # trime设置
+  IME_switch: {label: '🌐', functional: false, send: LANGUAGE_SWITCH} #彈出對話框選擇輸入法
+  IME_switch1: {label: ●, functional: false, send: LANGUAGE_SWITCH}
+  IME_last: {label: 上一输入法, send: LANGUAGE_SWITCH, select: .last} #直接切換到上一輸入法
+  IME_next: {label: 下一输入法, send: LANGUAGE_SWITCH, select: .next}
+  K_back: {label: 返回, send: Eisu_toggle, select: .last_lock}
+  K_back1: {label: "返回", functional: false, send: Eisu_toggle, select: .last_lock}
+  K_backCD: {label: ▼, send: Eisu_toggle, select: .last_lock}
+  K_backCDY: {label: ▶Ⅱ, send: Eisu_toggle, select: .last_lock}
+  K_backCDZ: {label: Ⅰ◀, send: Eisu_toggle, select: .last_lock}
+  K_default: {label: 中文, send: Eisu_toggle, select: .default}
+  K_menu: {label: ☼, preview: ' ', functional: false, send: Eisu_toggle, select: menu}
+  K_letter: {label: abc, send: Eisu_toggle, select: letter}
+  K_switch: {label: 键盘, send: Eisu_toggle, select: .next}
+  K_number: {label: 123, send: Eisu_toggle, select: number}
+  K_edit: {label: ‹ɪ›, send: Eisu_toggle, select: edit}
+  K_symbols: {label: ✡, send: Eisu_toggle, select: symbolsEN}
+  K_symbols123: {label: ϟ12, send: Eisu_toggle, select: symbolsSZ}
+  K_symbolsSZ: {label: 数字, send: Eisu_toggle, select: symbolsSZ}
+  K_symbolsEN: {label: 英文, send: Eisu_toggle, select: symbolsEN}
+  K_symbolsEN2: {label: 英文, send: Eisu_toggle, select: symbolsEN2}
+  K_symbolsCN: {label: 中文, send: Eisu_toggle, select: symbolsCN}
+  K_symbolsBQ: {label: '😊', send: Eisu_toggle, select: emoji}
+  K_symbolsBQ1: {label: '😜', send: Eisu_toggle, select: emoji}
+  K_symbolsBQ2: {label: '😂', send: Eisu_toggle, select: emoji2}
+  K_symbolsTS: {label: 特殊, send: Eisu_toggle, select: symbolsTS}
+  K_symbolsTS2: {label: 特殊, send: Eisu_toggle, select: symbolsTS2}
+  K_symbolsXH: {label: 序号, send: Eisu_toggle, select: symbolsXH}
+  K_symbolsXH2: {label: 序号, send: Eisu_toggle, select: symbolsXH2}
+  K_move: {label: ❖, send: Eisu_toggle, select: move}
+  K_last: {label: 后退, functional: false, send: Eisu_toggle, select: .next}
+  Schema_switch: {label: ⇄, functional: false, send: Control+Shift+1}
+  Schema_Eng: {label: En, send: Control+Shift+0}
+  Help: {label: 说明, send: Help}
+  Info: {label: 关于, send: INFO}
+  Menu: {label: ✡, functional: false, send: Menu} #方案选单
+  Settings: {label: ⚙, functional: false, send: SETTINGS}
+  Color_settings: {label: ◲, send: SETTINGS, option: "color"} #配色
+  Theme_settings: {label: ⛶, send: SETTINGS, option: "theme"} #主题
+  Schema_settings: {label: 方案, send: SETTINGS, option: "schema"}
+  # trime命令
+  Date: {label: "☀", send: function, command: date, option: "yyyyMMdd"} #20200228
+  #Date: {label: "☀", send: function, command: date, option: "yyyy年M月d日"} #2020年2月28日
+  #Date: {label: "☀", send: function, command: date, option: "yyyy-MM-dd"} #2020-02-28
+  Date1: {label: " ", send: function, command: date, option: "yyyy年M月d日"}
+  ChineseDate: {label: " ", send: function, command: date, option: "zh_CN@calendar=chinese"} #农历等日期(>=Android 7.0)：date 语言@calendar=历法 格式。具体參見https://developer.android.com/reference/android/icu/util/Calendar.html
+  EnglishDate: {label: " ", send: function, command: date, option: "en_US@calendar=english"}
+  Time: {label: " ", send: function, command: date, option: "HH:mm"}
+  #Time: {label: " ", send: function, command: date, option: " HH:mm E"}
+  TrimeCmp: {label: 同文组件, send: function, command: run, option: "com.osfans.trime/ .Pref"} #运行程序指定组件：run包名/组件名
+  HDSS: {label: ◫, functional: false, send: function, command: run, option: "https://www.zdic.net/hans/?q=%3$s"}
+  XHIX: {label: '❀', functional: false, send: function, command: run, option: "http://www.xhup.club/?search_word=%3$s"}
+  BDSS: {label: 百度, functional: false, send: function, command: run, option: "https://www.baidu.com/s?wd=%4$s"} # 搜索网页：%4$s为光标前所有字符或选中字符或未上屏首选词条
+  LLQ: {label: ◰, functional: false, send: function, command: web_search, option: "%4$s"} # 直达光标前http开头的网址或搜索光标前内容
+  Deploy: {label: ⟲, functional: false, send: function, command: broadcast, option: "com.osfans.trime.deploy"}
+  Sync: {label: 同步, send: function, command: broadcast, option: "com.osfans.trime.sync"}
+  Share: {label: 分享, functional: false, command: send, option: "%1$s"} #分享指定文本: %s或者%1$s爲當前字符
+  JTB: {label: 剪贴板, functional: false, send: function, command: run, option: "com.catchingnow.tinyclipboardmanager"} #剪纸堆app包名
+  M2T: {label: MT, functional: false, send: function, command: run, option: "bin.mt.plus"} #MT2app包名
+  Quickedit: {label: QE, functional: false, send: function, command: run, option: "com.rhmsoft.edit"} #Quickedit app包名
+  TIM: {label: TIM, functional: false, send: function, command: run, option: "com.tencent.tim"} #TIMapp包名
+  QQ: {label: QQ, functional: false, send: function, command: run, option: "com.tencent.mobileqq"} #QQapp包名
+  Weixin: {label: WX, functional: false, send: function, command: run, option: "com.tencent.mm"} #Weixinapp包名
+  XMJSQ: {label: ＝, functional: false, send: function, command: run, option: "com.miui.calculator"} #小米计算器app包名
+  HWJSQ: {label: ＝, functional: false, send: function, command: run, option: "com.android.calculator2"} #华为计算器app包名
+  IXH: {label: Ⅸ, functional: false, send: function, command: run, option: "mqqwpa://im/chat?chat_type=wpa&uin=428826691"}
+  Youxiang: {text: "{K_letter}{Mode_switch}okay{K_default}", label: "@"} #邮箱后缀，邮箱后缀在用户词库内定义
