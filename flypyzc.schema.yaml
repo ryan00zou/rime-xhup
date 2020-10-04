@@ -106,7 +106,6 @@ udzc:
   
 translator:
   dictionary: flypyzc.extended
-  db_class: tabledb
   enable_charset_filter: false
   enable_sentence: false
   enable_completion: false # 编码提示开关
