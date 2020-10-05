@@ -109,7 +109,7 @@ translator:
   enable_completion: false # 编码提示开关
   enable_user_dict: true
   enable_encoder: true
-  encode_commit_history: false # 自动造词开关：false关闭，true打开
+  encode_commit_history: true # 自动造词开关：false关闭，true打开
   max_phrase_length: 4
   disable_user_dict_for_patterns:
     - "^o.*$"
