@@ -70,9 +70,7 @@ engine:
     - table_translator@fixed
     - lua_translator@date_translator
     - lua_translator@time_translator
-    - table_translator@custom_phraseXT
     - table_translator@custom_phraseVD
-    - table_translator@custom_phraseYH
     - reverse_lookup_translator
     - history_translator@historyF
     - history_translator@historyI
@@ -139,22 +137,6 @@ custom_phraseXT:
   enable_sentence: false
   enable_completion: false
   initial_quality: -1 #本表词和系统词重码居后
-
-custom_phraseVD:
-  dictionary: ""
-  user_dict: flypy_top
-  db_class: stabledb
-  enable_sentence: false
-  enable_completion: false
-  initial_quality: 10000 #用户词和系统词重码 置顶
-  
-custom_phraseYH:
-  dictionary: ""
-  user_dict: flypy_user
-  db_class: stabledb
-  enable_sentence: false
-  enable_completion: false
-  initial_quality: -1 #用户词和系统词重码居后
 
 reverse_lookup:
   dictionary: flypydz
