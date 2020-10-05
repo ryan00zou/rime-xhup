@@ -177,7 +177,7 @@ recognizer:
     uppercase: "" #中文状态大写锁定直接上屏
     udzc: "^[a-z]*'[a-z']*$"
     reverse_lookup: "[a-z`]*`+[a-z`]*"
-    url: "^(www[.]|https?:|ry-|ry_|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
     punct: ""
 
 menu:
