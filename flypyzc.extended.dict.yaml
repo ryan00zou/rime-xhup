@@ -59,7 +59,7 @@ encoder:
 ：	;
 ；	;
 
-# 置顶词库
+# 置顶词库（含编码）
 æ	oyba
 ɑ:	oyba
 ʌ	oyba
@@ -90,5 +90,5 @@ u:	oybu
 uə	oybu
 ð	oybz
 
-# 居后词库
+# 居后词库（无编码）
 
