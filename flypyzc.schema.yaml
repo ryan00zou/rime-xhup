@@ -90,7 +90,7 @@ speller:
   initials: 'abcdefghijklmnopqrstuvwxyz;'
   finals: '/'
   delimiter: " '"
-  #max_code_length: 4 #全码码长，过则顶字上屏
+  max_code_length: 4 #全码码长，过则顶字上屏
   auto_select: true   #自动上屏
   auto_select_pattern: ^;.$|^\w{4}$ #自动上屏规则
   #auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
