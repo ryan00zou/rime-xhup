@@ -95,12 +95,25 @@ speller:
   auto_select_pattern: ^;.$|^\w{4}$ #自动上屏规则
   #auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
 
+translator:
+  dictionary: flypyzc.extended
+  enable_charset_filter: false
+  enable_sentence: false
+  enable_encoder: false  
+  enable_completion: false  # 编码提示开关
+  encode_commit_history: false  # 开启/屏蔽自动造词功能：true/false
+  max_phrase_length: 4
+  enable_user_dict: false
+  initial_quality: 100000
+  disable_user_dict_for_patterns:
+    - "^o.*$"
+    - "^`.*$"
+
 fixed:
   __include: /translator
   enable_encoder: true
   enable_user_dict: true
   encode_commit_history: true # 开启/屏蔽自动造词功能：true/false。
-  max_phrase_length: 4
   initial_quality: 1000
 
 udzc:
@@ -110,18 +123,6 @@ udzc:
   prefix: "'"
   tips: "〔手动造词〕"
   tag: udzc
-
-translator:
-  dictionary: flypyzc.extended
-  enable_charset_filter: false
-  enable_sentence: false
-  enable_encoder: false  
-  enable_completion: false # 编码提示开关
-  enable_user_dict: false
-  initial_quality: 100000
-  disable_user_dict_for_patterns:
-    - "^o.*$"
-    - "^`.*$"
 
 historyF:
    input: ;f
