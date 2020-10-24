@@ -104,7 +104,6 @@ translator:
   enable_encoder: false  
   enable_completion: false  # 编码提示开关
   encode_commit_history: false
-  max_phrase_length: 4
   enable_user_dict: false
   initial_quality: 100000
   disable_user_dict_for_patterns:
@@ -114,6 +113,7 @@ translator:
 fixed:
   __include: /translator
   enable_encoder: true  # 开启/关闭自动造词功能：true/false。
+  max_phrase_length: 4
   enable_user_dict: true
   encode_commit_history: true
   initial_quality: 1000
