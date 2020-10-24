@@ -103,7 +103,7 @@ translator:
   enable_sentence: false
   enable_encoder: false  
   enable_completion: false  # 编码提示开关
-  encode_commit_history: false  # 开启/屏蔽自动造词功能：true/false
+  encode_commit_history: false
   max_phrase_length: 4
   enable_user_dict: false
   initial_quality: 100000
@@ -113,9 +113,9 @@ translator:
 
 fixed:
   __include: /translator
-  enable_encoder: true
+  enable_encoder: true  # 开启/关闭自动造词功能：true/false。
   enable_user_dict: true
-  encode_commit_history: true # 开启/屏蔽自动造词功能：true/false。
+  encode_commit_history: true
   initial_quality: 1000
 
 udzc:
