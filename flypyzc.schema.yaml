@@ -197,7 +197,7 @@ recognizer:
     udzc: "^[a-z]*'[a-z']*$"
     emoji: "~[a-z]*'?$"
     reverse_lookup: "[a-z`]*`+[a-z`]*"
-    url: "^(www[.]|https?:|ry-|ry_|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
 
 menu:
   page_size: 5 #候选项数
