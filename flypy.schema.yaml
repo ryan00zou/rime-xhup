@@ -124,7 +124,7 @@ zdzc:
   __include: /fixed
   enable_encoder: true
   enable_user_dict: true
-  encode_commit_history: true  # 开启/关闭自动造词功能：true/false。
+  encode_commit_history: false  # 开启/关闭自动造词功能：true/false。
   max_phrase_length: 4
   initial_quality: -1
 
