@@ -105,7 +105,7 @@ translator:
   enable_completion: false  # 编码提示开关
   encode_commit_history: false
   enable_user_dict: false
-  initial_quality: 100000
+  initial_quality: 1
   disable_user_dict_for_patterns:
     - "^o.*$"
     - "^`.*$"
@@ -116,11 +116,11 @@ fixed:
   enable_user_dict: true
   encode_commit_history: false  # 开启/关闭自动造词功能：true/false。
   max_phrase_length: 4
-  initial_quality: 1000
+  initial_quality: -1.5
 
 udzc:
   __include: /translator
-  initial_quality: 10
+  initial_quality: -1
   enable_sentence: true
   prefix: "'"
   tips: "〔手动造词〕"
