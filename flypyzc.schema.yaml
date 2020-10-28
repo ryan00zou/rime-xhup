@@ -78,6 +78,7 @@ engine:
     - table_translator@udzc
     - table_translator@emoji
     - table_translator@fixed
+    - table_translator@english
     - table_translator@custom_phraseXT
     - reverse_lookup_translator
     - history_translator@historyF
@@ -92,7 +93,7 @@ speller:
   initials: 'abcdefghijklmnopqrstuvwxyz;'
   finals: '/'
   delimiter: " '"
-  max_code_length: 4 #全码码长，过则顶字上屏
+  #max_code_length: 4 #全码码长，过则顶字上屏
   auto_select: true   #自动上屏
   auto_select_pattern: ^;.$|^\w{4}$ #自动上屏规则
   #auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
@@ -164,7 +165,14 @@ emoji:
   prefix: "~"
   tips: "〔表情〕"
   tag: emoji
-        
+
+english:
+  dictionary: easy_en
+  spelling_hints: 9
+  enable_completion: true
+  enable_sentence: false
+  initial_quality: -2
+          
 key_binder:
   import_preset: default #方案切换相关
   bindings:
