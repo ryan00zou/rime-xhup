@@ -13,6 +13,7 @@ schema:
   dependencies:
     - flypydz
     - emoji
+    - easy_en
     
 punctuator:
   import_preset: default
