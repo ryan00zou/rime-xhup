@@ -48,7 +48,7 @@ engine:
     - ascii_segmentor
     - matcher
     - affix_segmentor@emoji
-    #- affix_segmentor@easy_en
+    - affix_segmentor@easy_en
     - affix_segmentor@flypy_radical
     - affix_segmentor@jiaci
     - affix_segmentor@zaoci_c6
@@ -91,10 +91,10 @@ speller:
   initials: ";abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
   finals: ""
   delimiter: " '"
-  # max_code_length: 4
+  max_code_length: 4
   auto_select: true   #自动上屏
   auto_select_pattern: ^;.$|^\w{4}$
-  # auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
+  auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
 
 translator:
   dictionary: flypy
@@ -161,9 +161,9 @@ easy_en:
   enable_completion: true
   comment_format:
     - xform/.*//                      # 清空提示码
-  # prefix: "oy"
-  # tips: "〔英语〕"
-  # tag: easy_en
+  prefix: "oy"
+  tips: "〔英语〕"
+  tag: easy_en
 
 history:
    input: ;f
@@ -269,11 +269,12 @@ recognizer:
   import_preset: default
   patterns:
     #uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    punct: '^/([0-9]0?|[A-Za-z]+)$'
     uppercase: "" #中文状态大写锁定直接上屏
     reverse_lookup: "[a-z`]*`+[a-z`]*"
     jiaci: "^'[a-z']*$|^[a-z]+'[a-z']*$"
     emoji: "^oe[a-z]*'?$"
-    #easy_en: "^oy[a-z]*'?$"
+    easy_en: "^oy[a-z]*'?$"
     flypy_radical: "^ok[a-z']*$"
     zaoci_c6: "^~[a-z']*$|^[a-z]+'[a-z']*$"
     punct: "^/([0-9]0?|[A-Za-z]+)$"      # 新增：符号输入 /fh
