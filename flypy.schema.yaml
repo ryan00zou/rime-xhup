@@ -7,15 +7,18 @@ schema:
   version: "10.26.1"
   author:
     - 方案设计：何海峰 flypy.cc
-    - 方案修改：Ryan
   description:
     - 小鹤音形
   dependencies:
     - flypydz
+    - flypyzc
     - emoji
+    - easy_en
+    - flypy_radical         # 新增：部件拆字反查
+    - flypy_reverse
 
 punctuator:
-  import_preset: default
+  import_preset: symbols
 
 switches:
   - name: ascii_mode
@@ -44,45 +47,54 @@ engine:
   segmentors:
     - ascii_segmentor
     - matcher
-    - affix_segmentor@jiaci
     - affix_segmentor@emoji
+    #- affix_segmentor@easy_en
+    - affix_segmentor@flypy_radical
+    - affix_segmentor@jiaci
+    - affix_segmentor@zaoci_c6
     - abc_segmentor
     - punct_segmentor
     - fallback_segmentor
-    - affix_segmentor@ok_mode
   translators:
     - punct_translator
     - table_translator
     - table_translator@jiaci
     - table_translator@fixed
+    - table_translator@zaoci_c6
+    - table_translator@cizu_c6
     - lua_translator@date_translator
     - lua_translator@time_translator
     - table_translator@custom_phraseVD
     - table_translator@custom_phraseXT
-    - table_translator@custom_phraseYH
+    - table_translator@custom_phraseVH
     - table_translator@custom_phraseQMZ
-    - table_translator@custom_phraseOK
+    - table_translator@easy_en            # 新增：easy_en 翻译器
+    - table_translator@flypy_radical                  # 触发进入部件组字模式
+    - lua_translator@*word_autocaps*translator  # 新增：英文单词自动大写
+    - lua_translator@shijian              # 新增：万象日期时间功能
+    - lua_translator@number_translator    # 新增：金额大写转换
+    - lua_translator@super_calculator     # 新增：万象超级计算器
     - reverse_lookup_translator
     - history_translator@history
-    - lua_translator@calculator_translator
     - table_translator@emoji
-    - table_translator@ok_mode
 
   filters:
+    - reverse_lookup_filter@radical_lookup
     - simplifier
     - simplifier@simplification
     - lua_filter@super_sequence_filter
+    - lua_filter@*word_autocaps*filter                # 新增：英文单词自动大写滤镜
     - uniquifier
 
 speller:
-  alphabet: "abcdefghijklmnopqrstuvwxyz;"
-  initials: ";abcdefghijklmnopqrstuvwxyz"
+  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ;"
+  initials: ";abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
   finals: ""
   delimiter: " '"
-  max_code_length: 4
+  # max_code_length: 4
   auto_select: true   #自动上屏
   auto_select_pattern: ^;.$|^\w{4}$
-  auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
+  # auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
 
 translator:
   dictionary: flypy
@@ -100,9 +112,9 @@ fixed:
   __include: /translator
   enable_encoder: true
   enable_user_dict: true
-  encode_commit_history: false # 默认false，手动造成；设为true则自动造词。
-  max_phrase_length: 4 # 造词的码长
-  initial_quality: -1.5
+  encode_commit_history: false
+  max_phrase_length: 7
+  initial_quality: -1
 
 jiaci:
   __include: /translator
@@ -111,6 +123,47 @@ jiaci:
   prefix: "'"
   tips: "〔手动造词〕"
   tag: jiaci
+
+cizu_c6: 
+  dictionary: flypyzc
+  enable_charset_filter: false
+  enable_sentence: false
+  enable_encoder: true
+  enable_completion: false  # 编码提示开关
+  encode_commit_history: false
+  disable_user_dict_for_patterns:
+    - "^`.*$"
+  enable_user_dict: true
+  initial_quality: -1.5
+
+zaoci_c6:
+  dictionary: flypyzc
+  enable_charset_filter: false
+  enable_sentence: true
+  max_phrase_length: 14
+  enable_completion: true
+  encode_commit_history: false
+  enable_user_dict: false
+  initial_quality: -1.5
+  disable_user_dict_for_patterns:
+    - "^`.*$"
+  prefix: "~"
+  tips: "〔6码造词〕"
+  tag: zaoci_c6
+
+# 次翻译器(英文)
+easy_en:
+  dictionary: easy_en
+  initial_quality: -2                # 不建议数值设定超过主翻译器的初始权重
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: true
+  enable_completion: true
+  comment_format:
+    - xform/.*//                      # 清空提示码
+  # prefix: "oy"
+  # tips: "〔英语〕"
+  # tag: easy_en
 
 history:
    input: ;f
@@ -129,22 +182,22 @@ custom_phraseVD:
   enable_sentence: false
   enable_completion: false
   initial_quality: 0 #用户词和系统词重码 置顶
-  
+
 custom_phraseXT:
   dictionary: ""
-  user_dict: flypy_sys
+  user_dict: flypy_bc
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
   initial_quality: -1 #本表词和系统词重码居后
 
-custom_phraseYH:
+custom_phraseVH:
   dictionary: ""
-  user_dict: flypy_user
+  user_dict: flypy_vh
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
-  initial_quality: -10 #用户词和系统词重码居后
+  initial_quality: -1.5 #本表词和系统词重码居后
 
 custom_phraseQMZ:
   dictionary: ""
@@ -152,24 +205,37 @@ custom_phraseQMZ:
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
-  initial_quality: -1 #和系统词重码时居后
-
-custom_phraseOK:
-  dictionary: ""
-  user_dict: flypy_ok
-  db_class: stabledb
-  enable_sentence: false
-  enable_completion: false
-  initial_quality: -1 #和系统词重码时居后
+  initial_quality: -1.8 #和系统词重码时居后
 
 # emoji 表情功能
 emoji:
   dictionary: emoji
-  enable_completion: false
+  enable_completion: true
   enable_user_dict: false
-  prefix: "~"
+  prefix: "oe"
   tips: "〔表情〕"
   tag: emoji
+
+
+# 部件拆字反查
+flypy_radical:                        # 部件拆字反查
+  prefix: "ok"
+  suffix: "'"
+  tips: 〔部件组字〕
+  tag: flypy_radical
+  dictionary: flypy_radical
+  enable_sentence: false
+  enable_user_dict: false
+  # enable_completion: true
+  comment_format:
+   - erase/^.*$//
+
+# 部件拆字滤镜
+radical_lookup:                       # 部件拆字滤镜
+  dictionary: flypy_reverse
+  tags: [flypy_radical]          # 去掉`abc`即为正常输入不显示拼音
+  overwrite_comment: false
+  comment_format: xform/^/~/
 
 reverse_lookup:
   dictionary: flypydz
@@ -180,12 +246,15 @@ reverse_lookup:
 
 key_binder:
   import_preset: default #方案切换相关
+  shijian_keys: ["/", "o"]
   bindings:
     - {accept: minus, send: Page_Up, when: paging} # - 上翻页
     - {accept: equal, send: Page_Down, when: has_menu} # = 下翻页
     - {accept: comma, send: comma, when: paging} #注销逗号翻页
-    - {accept: period, send: period, when: has_menu} #注销句号翻页
+  #  - {accept: period, send: period, when: has_menu} #注销句号翻页
+    - {accept: space, send: Return, when: composing and has_menu} #空格上屏首选
     - {accept: semicolon, send: 2, when: has_menu} #分号次选
+    - {accept: period, send: 3, when: has_menu} #句号3选
   #  - {accept: Release+semicolon, send: semicolon, when: has_menu} #如启用此行，则分号引导符号功能无效
     - {accept: Release+period, send: period, when: composing and not has_menu} #句号顶屏
     - {accept: Release+comma, send: comma, when: composing} #逗号顶屏
@@ -202,10 +271,22 @@ recognizer:
     #uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
     uppercase: "" #中文状态大写锁定直接上屏
     reverse_lookup: "[a-z`]*`+[a-z`]*"
-    punct: ""
-    expression: "^(=.*|ok[a-z']*)$"
-    jiaci: "^[a-z]*'[a-z']*$"
-    emoji: "~[a-z]*'?$"
+    jiaci: "^'[a-z']*$|^[a-z]+'[a-z']*$"
+    emoji: "^oe[a-z]*'?$"
+    #easy_en: "^oy[a-z]*'?$"
+    flypy_radical: "^ok[a-z']*$"
+    zaoci_c6: "^~[a-z']*$|^[a-z]+'[a-z']*$"
+    punct: "^/([0-9]0?|[A-Za-z]+)$"      # 新增：符号输入 /fh
+    number: "^R[0-9]+[.]?[0-9]*$"        # 金额大写输入 R + 数字（万象默认）
+    yr1: "^N0[1-9]?0?[1-9]?"             # 年份输入 N + 日期（万象默认）
+    yr2: "^N1[02]?0?[1-9]?"
+    yr3: "^N0[1-9]?[1-2]?[1-9]?"
+    yr4: "^N1[02]?[1-2]?[1-9]?"
+    yr5: "^N0[1-9]?3?[01]?"
+    yr6: "^N1[02]?3?[01]?"
+    nyr1: "^N19?[0-9]?[0-9]?[0-1]?[0-9]?[0-9]?[0-9]?"
+    nyr2: "^N20?[0-9]?[0-9]?[0-1]?[0-9]?[0-9]?[0-9]?"
+    calculator: "^V.*$"                   # 新增：万象超级计算器 V 引导（万象默认）
     url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
 
 menu:

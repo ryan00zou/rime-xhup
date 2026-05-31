@@ -1,21 +1,9 @@
-function date_translator(input, seg)
-   if (input == "orq") then
-      --- Candidate(type, start, end, text, comment)
-      yield(Candidate("date", seg.start, seg._end, os.date("%Y_%m_ %d"), " "))
-      yield(Candidate("date", seg.start, seg._end, os.date("%Y年%m月%d日"), ""))
-      yield(Candidate("date", seg.start, seg._end, os.date("%Y-%m-%d"), " "))
-   end
-end
+-- 金额大写转换
+number_translator = require("wanxiang/number_translator")
+super_calculator = require("wanxiang/super_calculator")
 
-function time_translator(input, seg)
-   if (input == "ouj") then
-      local cand = Candidate("time", seg.start, seg._end, os.date("%H:%M"), " ")
-      cand.quality = 1
-      yield(cand)
-   end
-end
-
-calculator_translator = require("calculator_translator")
+-- 万象日期时间功能
+shijian = require("wanxiang/shijian")
 
 -- 万象快捷键手动排序模块 (Ctrl+j/k/l/p 移动候选词)
 local wanxiang = require("wanxiang/wanxiang")
@@ -38,3 +26,9 @@ user_predict_filter = user_predict.F
 -- 注册 super_sequence 模块
 super_sequence_processor = super_sequence.P
 super_sequence_filter = super_sequence.F
+
+-- 英文输入相关
+cn_en_custom = require("cn_en_custom")
+
+-- 英文单词自动大写
+word_autocaps = require("word_autocaps")

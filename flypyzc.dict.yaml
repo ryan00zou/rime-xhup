@@ -1,0 +1,22 @@
+# Rime dictionary
+# encoding: utf-8
+# 小鹤音形（简）
+# 单字，造词专用
+---
+name: flypyzc
+version: "10.26.2"
+sort: original
+encoder:
+  exclude_patterns:
+    - '^o.*$'
+    - '^`.*$'
+  rules:
+    - length_equal: 2
+      formula: "AaAbBaBbAcBc"
+    - length_equal: 3
+      formula: "AaBaCaCbAcCc"
+    - length_in_range: [4, 14]
+      formula: "AaBaCaZaAcZc"
+import_tables:
+  - flypydz
+...

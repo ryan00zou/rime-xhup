@@ -1,0 +1,51 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: flypyzc
+  name: 小鹤6码造词
+  version: "10.26.1"
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ CN, EN ]
+    
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+speller:
+  alphabet: ';zyxwvutsrqponmlkjihgfedcba'
+  initials: 'abcdefghijklmnopqrstuvwxyz;'
+  finals: ''
+  # delimiter: " '"
+  max_code_length: 4
+  auto_select: true
+  auto_select_pattern: ^;.$|^\w{4}$
+
+translator:
+  dictionary: flypyzc
+  enable_charset_filter: false
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
