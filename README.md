@@ -16,8 +16,10 @@
 
 （2）使用波浪符 `~` 启用语句流功能实现手动造词，造词时使用单引号 `'` 分词。此为6码造词。2字词：AaAbBaBbAcBc。3字词：AaBaCaCbAcBc。多字词：AaBaCaZaAcZc。例：时务uiwuow，实务uiwubw。
 
-此模式主要用于重码较多时使用，需注销  
+此模式主要用于重码较多时使用，需注销
+
   \# max_code_length: 4    （或者不注销此行，将4改为6）
+  
   \# auto_clear: max_length
 
 #### 3. 自动造词开启
