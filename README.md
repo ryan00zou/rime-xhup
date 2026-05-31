@@ -12,7 +12,7 @@
 
 #### 2. 手动造词方法（来自98wubi）
 
-（1）使用单引号 `'` 启用语句流功能实现手动造词，造词时使用单引号 `'` 分词。此为4码造词。2字词：AaAbBaBb。3字词：AaBaCaCb。多字词：AaBaCaDa。
+（1）使用单引号 `'` 启用语句流功能实现手动造词，造词时使用单引号 `'` 分词。此为4码造词。2字词：AaAbBaBb。3字词：AaBaCaCb。多字词：AaBaCaZa。
 
 （2）使用波浪符 `~` 启用语句流功能实现手动造词，造词时使用单引号 `'` 分词。此为6码造词。2字词：AaAbBaBbAcBc。3字词：AaBaCaCbAcBc。多字词：AaBaCaZaAcZc。例：时务uiwuow，实务uiwubw。
 
