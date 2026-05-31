@@ -12,7 +12,13 @@
 
 #### 2. 手动造词方法（来自98wubi）
 
-使用单引号 `'` 启用语句流功能实现手动造词，造词时使用单引号 `'` 分词。
+（1）使用单引号 `'` 启用语句流功能实现手动造词，造词时使用单引号 `'` 分词。此为4码造词。2字词：AaAbBaBb。3字词：AaBaCaCb。多字词：AaBaCaDa。
+
+（2）使用波浪符 `~` 启用语句流功能实现手动造词，造词时使用单引号 `'` 分词。此为6码造词。2字词：AaAbBaBbAcBc。3字词：AaBaCaCbAcBc。多字词：AaBaCaZaAcZc。例：时务uiwuow，实务uiwubw。
+
+此模式主要用于重码较多时使用，需注销  
+  # max_code_length: 4    （或者不注销此行，将4改为6）
+  # auto_clear: max_length
 
 #### 3. 自动造词开启
 
@@ -29,9 +35,9 @@
 
 #### 5. ok引导纯双拼打生僻字
 
-小鹤原有功能，输入 `ok` 后接纯双拼可输入生僻字，例如：
+从rime-fast-xhup移植，输入 `ok` 后接纯双拼可输入生僻字，显示拼音和小鹤形码辅助码，例如：
 
-- `oknqnqnq` → 犇
+- `oknqnqnq` → 犇 bēn·牛牛
 
 #### 6. 快捷键调频（来自万象拼音）
 
@@ -42,12 +48,16 @@
 - `Ctrl+l`：重置词频
 - `Ctrl+p`：置顶候选词
 
-#### 7. ~符号引导Emoji表情
+同时移植了V, R, N键引导计算器、金额大写、和数字转日期功能。
 
-输入 `~` 符号后可引导输入Emoji表情，例如：
+#### 7. 引导输入
+
+（1）输入 `oe` 后可引导输入Emoji表情，例如：
 
 - `~smile` → 😊
 - `~heart` → ❤️
+
+（2）输入 `oy` 后可引导输入英文单词。
 
 #### 8. 同文trime皮肤（修改于Q主题）
 
@@ -57,4 +67,5 @@
 
 （1）感谢鹤大的小鹤双拼音形输入法，给予日常输入带来的巨大便利。<https://flypy.cc>
 （2）谢谢omgredfog的五笔方案启发 <https://github.com/omgredfog/98wubi>
-（3）谢谢万象拼音，移植的快捷键调频。<https://github.com/amzxyz/rime-wanxiang>
+（3）谢谢万象拼音，移植的快捷键调频等功能。<https://github.com/amzxyz/rime-wanxiang>
+（4）谢谢rime-fast-xhup，移植了部件组字反查。<https://github.com/boomker/rime-fast-xhup>
