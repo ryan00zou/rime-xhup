@@ -68,6 +68,9 @@
 ### 致谢
 
 （1）感谢鹤大的小鹤双拼音形输入法，给予日常输入带来的巨大便利。<https://flypy.cc>
+
 （2）谢谢omgredfog的五笔方案启发 <https://github.com/omgredfog/98wubi>
+
 （3）谢谢万象拼音，移植的快捷键调频等功能。<https://github.com/amzxyz/rime-wanxiang>
+
 （4）谢谢rime-fast-xhup，移植了部件组字反查。<https://github.com/boomker/rime-fast-xhup>
