@@ -185,7 +185,7 @@ custom_phraseVD:
 
 custom_phraseXT:
   dictionary: ""
-  user_dict: flypy_bc
+  user_dict: flypy_sys
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
@@ -193,7 +193,7 @@ custom_phraseXT:
 
 custom_phraseVH:
   dictionary: ""
-  user_dict: flypy_vh
+  user_dict: flypy_user
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
