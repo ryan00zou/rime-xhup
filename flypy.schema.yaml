@@ -277,7 +277,7 @@ recognizer:
     uppercase: "" #中文状态大写锁定直接上屏
     reverse_lookup: "[a-z`]*`+[a-z`]*"
     zaoci: "^'[a-z']*$|^[a-z]+'[a-z']*$"
-    emoji: "^oe[a-z]*'?$"
+    #emoji: "^oe[a-z]*'?$"
     #easy_en: "^oy[a-z]*'?$"
     flypy_radical: "^ok[a-z']*$"
     zaoci_c6: "^~[a-z']*$|^[a-z]+'[a-z']*$"
