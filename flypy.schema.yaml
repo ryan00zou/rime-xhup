@@ -12,6 +12,7 @@ schema:
   dependencies:
     - flypydz
     - flypyzc
+    - flypyzc6
     - emoji
     - easy_en
     - flypy_radical         # 新增：部件拆字反查
@@ -37,8 +38,8 @@ engine:
   processors:
     - ascii_composer
     - recognizer
-    - key_binder
     - lua_processor@super_sequence_processor
+    - key_binder
     - speller
     - punctuator
     - selector
@@ -47,10 +48,10 @@ engine:
   segmentors:
     - ascii_segmentor
     - matcher
-    - affix_segmentor@emoji
-    - affix_segmentor@easy_en
+    #- affix_segmentor@emoji
+    #- affix_segmentor@easy_en
     - affix_segmentor@flypy_radical
-    - affix_segmentor@jiaci
+    - affix_segmentor@zaoci
     - affix_segmentor@zaoci_c6
     - abc_segmentor
     - punct_segmentor
@@ -58,8 +59,8 @@ engine:
   translators:
     - punct_translator
     - table_translator
-    - table_translator@jiaci
-    - table_translator@fixed
+    - table_translator@zaoci
+    - table_translator@cizu
     - table_translator@zaoci_c6
     - table_translator@cizu_c6
     - lua_translator@date_translator
@@ -91,10 +92,10 @@ speller:
   initials: ";abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
   finals: ""
   delimiter: " '"
-  max_code_length: 4
+  # max_code_length: 4
   auto_select: true   #自动上屏
   auto_select_pattern: ^;.$|^\w{4}$
-  auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
+  # auto_clear: max_length #manual|auto|max_length 空码按下一键确认清屏|空码自动清|达到最长码时后码顶上清屏
 
 translator:
   dictionary: flypy
@@ -108,24 +109,30 @@ translator:
   disable_user_dict_for_patterns:
     - "^`.*$"
 
-fixed:
-  __include: /translator
+cizu:
+  dictionary: flypyzc
+  enable_charset_filter: false
+  enable_sentence: false
   enable_encoder: true
-  enable_user_dict: true
+  enable_completion: false  # 编码提示开关
   encode_commit_history: false
-  max_phrase_length: 7
+  disable_user_dict_for_patterns:
+    - "^`.*$"
+  enable_user_dict: true
   initial_quality: -1
 
-jiaci:
-  __include: /translator
-  initial_quality: -1
-  enable_sentence: true   # 启用编码补全
+zaoci:
+  __include: /cizu
+  enable_sentence: true
+  enable_encoder: false
+  encode_commit_history: true
+  max_phrase_length: 14
   prefix: "'"
   tips: "〔手动造词〕"
-  tag: jiaci
+  tag: zaoci
 
 cizu_c6: 
-  dictionary: flypyzc
+  dictionary: flypyzc6
   enable_charset_filter: false
   enable_sentence: false
   enable_encoder: true
@@ -137,16 +144,11 @@ cizu_c6:
   initial_quality: -1.5
 
 zaoci_c6:
-  dictionary: flypyzc
-  enable_charset_filter: false
+  __include: /cizu_c6
   enable_sentence: true
+  enable_encoder: false
+  encode_commit_history: true
   max_phrase_length: 14
-  enable_completion: true
-  encode_commit_history: false
-  enable_user_dict: false
-  initial_quality: -1.5
-  disable_user_dict_for_patterns:
-    - "^`.*$"
   prefix: "~"
   tips: "〔6码造词〕"
   tag: zaoci_c6
@@ -161,9 +163,9 @@ easy_en:
   enable_completion: true
   comment_format:
     - xform/.*//                      # 清空提示码
-  prefix: "oy"
-  tips: "〔英语〕"
-  tag: easy_en
+  # prefix: "oy"
+  # tips: "〔英语〕"
+  # tag: easy_en
 
 history:
    input: ;f
@@ -185,7 +187,7 @@ custom_phraseVD:
 
 custom_phraseXT:
   dictionary: ""
-  user_dict: flypy_sys
+  user_dict: flypy_bc
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
@@ -193,7 +195,7 @@ custom_phraseXT:
 
 custom_phraseVH:
   dictionary: ""
-  user_dict: flypy_user
+  user_dict: flypy_vh
   db_class: stabledb
   enable_sentence: false
   enable_completion: false
@@ -210,11 +212,14 @@ custom_phraseQMZ:
 # emoji 表情功能
 emoji:
   dictionary: emoji
+  initial_quality: -5                # 不建议数值设定超过主翻译器的初始权重
+  enable_sentence: false
+  enable_encoder: false  
   enable_completion: true
   enable_user_dict: false
-  prefix: "oe"
-  tips: "〔表情〕"
-  tag: emoji
+  #prefix: "oe"
+  #tips: "〔表情〕"
+  #tag: emoji
 
 
 # 部件拆字反查
@@ -269,12 +274,11 @@ recognizer:
   import_preset: default
   patterns:
     #uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
-    punct: '^/([0-9]0?|[A-Za-z]+)$'
     uppercase: "" #中文状态大写锁定直接上屏
     reverse_lookup: "[a-z`]*`+[a-z`]*"
-    jiaci: "^'[a-z']*$|^[a-z]+'[a-z']*$"
+    zaoci: "^'[a-z']*$|^[a-z]+'[a-z']*$"
     emoji: "^oe[a-z]*'?$"
-    easy_en: "^oy[a-z]*'?$"
+    #easy_en: "^oy[a-z]*'?$"
     flypy_radical: "^ok[a-z']*$"
     zaoci_c6: "^~[a-z']*$|^[a-z]+'[a-z']*$"
     punct: "^/([0-9]0?|[A-Za-z]+)$"      # 新增：符号输入 /fh

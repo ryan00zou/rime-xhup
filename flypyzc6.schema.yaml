@@ -2,8 +2,8 @@
 # encoding: utf-8
 
 schema:
-  schema_id: flypyzc
-  name: 小鹤4码造词●勿用
+  schema_id: flypyzc6
+  name: 小鹤6码造词●勿用
   version: "10.26.1"
 
 switches:
@@ -39,12 +39,12 @@ speller:
   initials: 'abcdefghijklmnopqrstuvwxyz;'
   finals: ''
   # delimiter: " '"
-  max_code_length: 4
+  max_code_length: 6
   auto_select: true
   auto_select_pattern: ^;.$|^\w{4}$
 
 translator:
-  dictionary: flypyzc
+  dictionary: flypyzc6
   enable_charset_filter: false
   enable_completion: false
   enable_sentence: false

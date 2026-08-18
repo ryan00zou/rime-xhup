@@ -1,6 +1,6 @@
 # Rime dictionary
 # encoding: utf-8
-# 小鹤音形（简），来自小鹤挂接
+# 小鹤音形（简）
 ---
 name: flypy
 version: "10.26.2"
@@ -16,6 +16,7 @@ encoder:
     - length_in_range: [4, 14]
       formula: "AaBaCaZa"
 ...
+# 主码-首选字词
 啊	a
 阿	aa
 阿爸	aaba
@@ -67346,6 +67347,7 @@ https://flypy.cc	xhg
 啧啧啧	zzze
 自作自受	zzzu
 走走	zzzz
+#表外字
 啱	anku
 捱	aift
 鿫	aoqd
@@ -67704,6 +67706,7 @@ https://flypy.cc	xhg
 姕	zivn
 潀	zsdr
 喿	zckm
+# 次选字
 簟	dmv
 镞	zuj
 焰	yjhj

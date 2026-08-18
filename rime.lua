@@ -27,8 +27,5 @@ user_predict_filter = user_predict.F
 super_sequence_processor = super_sequence.P
 super_sequence_filter = super_sequence.F
 
--- 英文输入相关
-cn_en_custom = require("cn_en_custom")
-
 -- 英文单词自动大写
 word_autocaps = require("word_autocaps")

@@ -1,0 +1,9 @@
+customization:
+  distribution_code_name: Weasel
+  distribution_version: VERSION_MAJOR.VERSION_MINOR.VERSION_PATCH
+  generator: "Weasel::UIStyleSettings"
+  modified_time: "Tue Jul 21 16:02:53 2026"
+  rime_version: 1.17.0
+patch:
+  "style/color_scheme": google
+  "style/layout/candidate_spacing": 50

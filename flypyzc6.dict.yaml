@@ -3,7 +3,7 @@
 # 小鹤音形（简）
 # 造词专用
 ---
-name: flypyzc
+name: flypyzc6
 version: "10.26.2"
 sort: original
 encoder:
@@ -11,11 +11,11 @@ encoder:
     - '^`.*$'
   rules:
     - length_equal: 2
-      formula: "AaAbBaBb"
+      formula: "AaAbBaBbAcBc"
     - length_equal: 3
-      formula: "AaBaCaCb"
+      formula: "AaBaCaCbAcCc"
     - length_in_range: [4, 14]
-      formula: "AaBaCaZa"
+      formula: "AaBaCaZaAcZc"
 import_tables:
   - flypydz
 ...
