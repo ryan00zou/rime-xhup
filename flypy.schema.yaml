@@ -33,12 +33,16 @@ switches:
   - name: ascii_punct
    # states: [ 。，, ．， ]
     reset: 0
+  - name: super_tips
+    states: [ 提示关, 提示开 ]
+    reset: 1
 
 engine:
   processors:
     - ascii_composer
     - recognizer
     - lua_processor@super_sequence_processor
+    - lua_processor@super_tips_processor
     - key_binder
     - speller
     - punctuator
@@ -59,10 +63,10 @@ engine:
   translators:
     - punct_translator
     - table_translator
-    - table_translator@zaoci
     - table_translator@cizu
-    - table_translator@zaoci_c6
+    - table_translator@zaoci
     - table_translator@cizu_c6
+    - table_translator@zaoci_c6
     - lua_translator@date_translator
     - lua_translator@time_translator
     - table_translator@custom_phraseVD
@@ -73,7 +77,7 @@ engine:
     - table_translator@flypy_radical                  # 触发进入部件组字模式
     - lua_translator@*word_autocaps*translator  # 新增：英文单词自动大写
     - lua_translator@shijian              # 新增：万象日期时间功能
-    - lua_translator@number_translator    # 新增：金额大写转换
+    - lua_translator@number_conversion  # 数字转换 (金额大写、科学计数、进制)
     - lua_translator@super_calculator     # 新增：万象超级计算器
     - reverse_lookup_translator
     - history_translator@history
@@ -84,11 +88,12 @@ engine:
     - simplifier
     - simplifier@simplification
     - lua_filter@super_sequence_filter
-    - lua_filter@*word_autocaps*filter                # 新增：英文单词自动大写滤镜
+    - lua_filter@zaoci_phrase_filter
+    - lua_filter@*word_autocaps*filter
     - uniquifier
 
 speller:
-  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ;"
+  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ;'"
   initials: ";abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
   finals: ""
   delimiter: " '"
@@ -109,48 +114,44 @@ translator:
   disable_user_dict_for_patterns:
     - "^`.*$"
 
+# 手动造词查询（flypyzc 编码，供正常输入时检索造词）
 cizu:
   dictionary: flypyzc
   enable_charset_filter: false
   enable_sentence: false
   enable_encoder: true
-  enable_completion: false  # 编码提示开关
+  enable_completion: false
   encode_commit_history: false
-  disable_user_dict_for_patterns:
-    - "^`.*$"
   enable_user_dict: true
-  initial_quality: -1
+  initial_quality: -1.5
 
+# 手动造词（' 前缀，flypyzc 编码）
 zaoci:
   __include: /cizu
   enable_sentence: true
-  enable_encoder: false
-  encode_commit_history: true
+  enable_user_dict: false
   max_phrase_length: 14
   prefix: "'"
-  tips: "〔手动造词〕"
   tag: zaoci
 
-cizu_c6: 
+# 6码造词查询
+cizu_c6:
   dictionary: flypyzc6
   enable_charset_filter: false
   enable_sentence: false
   enable_encoder: true
-  enable_completion: false  # 编码提示开关
+  enable_completion: false
   encode_commit_history: false
-  disable_user_dict_for_patterns:
-    - "^`.*$"
   enable_user_dict: true
   initial_quality: -1.5
 
+# 6码手动造词（~ 前缀）
 zaoci_c6:
   __include: /cizu_c6
   enable_sentence: true
-  enable_encoder: false
-  encode_commit_history: true
+  enable_user_dict: false
   max_phrase_length: 14
   prefix: "~"
-  tips: "〔6码造词〕"
   tag: zaoci_c6
 
 # 次翻译器(英文)
@@ -276,11 +277,11 @@ recognizer:
     #uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
     uppercase: "" #中文状态大写锁定直接上屏
     reverse_lookup: "[a-z`]*`+[a-z`]*"
-    zaoci: "^'[a-z']*$|^[a-z]+'[a-z']*$"
+    zaoci: "^[a-z]*'[a-z']*$"
     #emoji: "^oe[a-z]*'?$"
     #easy_en: "^oy[a-z]*'?$"
     flypy_radical: "^ok[a-z']*$"
-    zaoci_c6: "^~[a-z']*$|^[a-z]+'[a-z']*$"
+    zaoci_c6: "^~[a-z]*'[a-z']*$"
     punct: "^/([0-9]0?|[A-Za-z]+)$"      # 新增：符号输入 /fh
     number: "^R[0-9]+[.]?[0-9]*$"        # 金额大写输入 R + 数字（万象默认）
     yr1: "^N0[1-9]?0?[1-9]?"             # 年份输入 N + 日期（万象默认）
@@ -304,6 +305,14 @@ super_sequence:
   down: "Control+k"  # 下移
   reset: "Control+l" # 重置
   pin: "Control+p"   # 置顶
+
+# 超级提示配置 (super_tips.lua)
+super_tips:
+  db_name: "tips"
+  tips_key: "period"
+  files:
+    - lua/data/tips_show.txt
+    - lua/data/tips_user.txt
 
 style:
   text_orientation: horizontal
