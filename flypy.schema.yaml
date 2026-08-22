@@ -132,6 +132,7 @@ zaoci:
   enable_user_dict: false
   max_phrase_length: 14
   prefix: "'"
+  tips: "〔手动造词〕"
   tag: zaoci
 
 # 6码造词查询
@@ -152,6 +153,7 @@ zaoci_c6:
   enable_user_dict: false
   max_phrase_length: 14
   prefix: "~"
+  tips: "〔6码造词〕"
   tag: zaoci_c6
 
 # 次翻译器(英文)
@@ -281,7 +283,7 @@ recognizer:
     #emoji: "^oe[a-z]*'?$"
     #easy_en: "^oy[a-z]*'?$"
     flypy_radical: "^ok[a-z']*$"
-    zaoci_c6: "^~[a-z]*'[a-z']*$"
+    zaoci_c6: "^~[a-z']*$"
     punct: "^/([0-9]0?|[A-Za-z]+)$"      # 新增：符号输入 /fh
     number: "^R[0-9]+[.]?[0-9]*$"        # 金额大写输入 R + 数字（万象默认）
     yr1: "^N0[1-9]?0?[1-9]?"             # 年份输入 N + 日期（万象默认）
