@@ -169,4 +169,4 @@ function ZaociPhrase.commit_handler(ctx, env)
     end
 end
 
-return ZaociPhrase
+return { filter = ZaociPhrase }

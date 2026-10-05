@@ -5,7 +5,7 @@ local wanxiang = {}
 
 -- x-release-please-start-version
 
-wanxiang.version = "v15.9.0"
+wanxiang.version = "v18.0.16"
 
 -- x-release-please-end
 
@@ -35,7 +35,9 @@ function wanxiang.is_mobile_device()
         if lower_dist == "trime" or
             lower_dist == "hamster" or
             lower_dist == "hamster3" or
-            lower_dist == "squirrel" then
+            lower_dist == "default" or --超越
+            lower_dist == "xime" or --曦码
+            lower_dist == "lyraime" then  --灵韵
             return true
         end
 
@@ -44,16 +46,10 @@ function wanxiang.is_mobile_device()
             lower_path:find("/mobile/") or
             lower_path:find("/sdcard/") or
             lower_path:find("/data/storage/") or
-            lower_path:find("/storage/emulated/") or
-            lower_path:find("applications") or
-            lower_path:find("library") then
+            lower_path:find("/storage/emulated/") then
             return true
         end
-        -- 补充判断：路径中包含移动设备特征，很可以mac的运行逻辑和手机一球样
-        if sys_lower_path:find("applications") or
-            sys_lower_path:find("library") then
-            return true
-        end
+
         -- 特定平台判断（Android/Linux）
         if jit and jit.os then
             local os_name = jit.os:lower()
@@ -70,6 +66,28 @@ function wanxiang.is_mobile_device()
         is_mobile_device = _is_mobile_device()
     end
     return is_mobile_device
+end
+
+local is_special_desktop = nil
+
+--- 判断是否为需要特殊处理的桌面环境（squirrel、Cobra 或 fcitx-rime+library）
+---@return boolean
+function wanxiang.is_special_desktop()
+    if is_special_desktop == nil then
+        local dist = rime_api.get_distribution_code_name() or ""
+        local sys_dir = rime_api.get_shared_data_dir() or ""
+        local lower_dist = dist:lower()
+        local lower_sys = sys_dir:lower()
+
+        local exclude = false
+        if lower_dist == "squirrel" or lower_dist == "cobra" then
+            exclude = true
+        elseif lower_dist == "fcitx-rime" and lower_sys:find("library") then
+            exclude = true
+        end
+        is_special_desktop = exclude
+    end
+    return is_special_desktop
 end
 
 --- 检测是否为万象专业版
@@ -92,7 +110,7 @@ end
 ---判断是否在命令模式
 ---@param context Context | nil
 ---@return boolean
-function wanxiang.is_function_mode_active(context)
+function wanxiang.is_function_mode(context)
     if not context or not context.composition or context.composition:empty() then
         return false
     end
@@ -104,13 +122,12 @@ function wanxiang.is_function_mode_active(context)
         seg:has_tag("unicode") or    -- unicode.lua 输出 Unicode 字符 U+小写字母或数字
         --seg:has_tag("punct") or      -- 标点符号 全角半角提示
         seg:has_tag("calculator") or -- super_calculator.lua V键计算器
-        seg:has_tag("shijian") or    -- shijian.lua /rq /sr 等与时间日期相关功能
-        seg:has_tag("Ndate")       -- shijian.lua N日期功能
+        seg:has_tag("shijian")       -- shijian.lua 时间日期相关功能
 end
 
 ---@param context Context | nil
 ---@return boolean
-function wanxiang.s2t_conversion(context)
+function wanxiang.is_special_mode(context)
     if not context or not context.composition or context.composition:empty() then
         return false
     end
@@ -122,8 +139,8 @@ function wanxiang.s2t_conversion(context)
         seg:has_tag("unicode") or    -- unicode.lua 输出 Unicode 字符 U+小写字母或数字
         seg:has_tag("punct") or      -- 标点符号 全角半角提示
         seg:has_tag("calculator") or -- super_calculator.lua V键计算器
-        seg:has_tag("shijian") or    -- shijian.lua /rq /sr 等与时间日期相关功能
-        seg:has_tag("Ndate") or      -- shijian.lua N日期功能
+        seg:has_tag("shijian") or    -- shijian.lua 时间日期相关功能
+        seg:has_tag("super_symbol") or    -- 超级符号
         seg:has_tag("wanxiang_reverse")
 end
 ---判断文件是否存在
@@ -245,313 +262,145 @@ function wanxiang.get_user_id()
     installation_file:close()
     return user_id
 end
+---@class WanxiangRegexMatcher
+---@field projection Projection
+---@field pattern string
+
+-- Projection 没有直接暴露 bool match 接口；这里用单条 erase 规则把
+-- “完整匹配 / 不匹配”映射为“空字符串 / 原字符串”。
+-- matcher 在初始化时构建一次，热路径只执行已编译正则的匹配。
+-- 此做法缘起规避直接暴露的接口在一些Linux机型上导致fcitx5异常退出，但其缓存初始化的做法其实在性能上更优。
+local REGEX_DELIMITERS = { "#", "%", ";", "~", "|", "@", "/", "!", ",", "=", "_" }
+
+---@param pattern string
+---@return WanxiangRegexMatcher|nil matcher
+---@return string|nil error_message
+function wanxiang.compile_regex(pattern)
+    if type(pattern) ~= "string" or pattern == "" then
+        return nil, "pattern must be a non-empty string"
+    end
+
+    local delimiter = nil
+    for _, candidate in ipairs(REGEX_DELIMITERS) do
+        if not pattern:find(candidate, 1, true) then
+            delimiter = candidate
+            break
+        end
+    end
+
+    if not delimiter then
+        return nil, "pattern contains every supported projection delimiter"
+    end
+
+    local projection = Projection()
+    local rule = "erase" .. delimiter .. pattern .. delimiter
+    local ok, loaded = pcall(function()
+        return projection:load({ rule })
+    end)
+
+    if not ok then
+        return nil, tostring(loaded)
+    end
+    if not loaded then
+        return nil, "projection rejected pattern: " .. pattern
+    end
+
+    return {
+        projection = projection,
+        pattern = pattern,
+    }
+end
+
+---@param matcher WanxiangRegexMatcher|nil
+---@param input string
+---@return boolean
+function wanxiang.regex_matches(matcher, input)
+    if not matcher or not matcher.projection or type(input) ~= "string" then
+        return false
+    end
+
+    -- erase 匹配成功和“空输入未匹配”都会得到空字符串，因此该兼容层
+    -- 明确只用于当前两处非空编码匹配场景。
+    if input == "" then
+        return false
+    end
+
+    return matcher.projection:apply(input, true) == ""
+end
+
 wanxiang.INPUT_METHOD_MARKERS = {
-    ["Ⅰ"] = "pinyin", --全拼
-    ["Ⅱ"] = "zrm", --自然码双拼
-    ["Ⅲ"] = "flypy", --小鹤双拼
-    ["Ⅳ"] = "mspy", --微软双拼
-    ["Ⅴ"] = "sogou", --搜狗双拼
-    ["Ⅵ"] = "abc", --智能abc双拼
-    ["Ⅶ"] = "ziguang", --紫光双拼
-    ["Ⅷ"] = "pyjj", --拼音加加
-    ["Ⅸ"] = "gbpy", --国标双拼
-    ["Ⅹ"] = "wxsp", --万象双拼
-    ["Ⅺ"] = "zrlong", --自然龙
-    ["Ⅻ"] = "hxlong", --汉心龙
-    ["Ⅼ"] = "lxsq", --乱序17
-    ["ⅲ"] = "ⅲ", -- 间接辅助标记：命中则额外返回 md="ⅲ"
-    ["ⅱ"] = "t9", -- 拼音九键
+    ["Ⅰ"] = "pinyin",   -- 全拼
+    ["Ⅱ"] = "zrm",      -- 自然码双拼
+    ["Ⅲ"] = "flypy",    -- 小鹤双拼
+    ["Ⅳ"] = "mspy",     -- 微软双拼
+    ["Ⅴ"] = "sogou",    -- 搜狗双拼
+    ["Ⅵ"] = "abc",      -- 智能ABC双拼
+    ["Ⅶ"] = "ziguang",  -- 紫光双拼
+    ["Ⅷ"] = "pyjj",     -- 拼音加加
+    ["Ⅸ"] = "gbpy",     -- 国标双拼
+    ["Ⅺ"] = "zrlong",   -- 自然龙
+    ["Ⅻ"] = "hxlong",   -- 汉心龙
+    ["Ⅿ"] = "ltsp",     -- 蓝天双拼
+    ["Ⅼ"] = "lxsq",     -- 乱序17
+    ["Ⅽ"] = "dnsp",    -- 大牛双拼
+    ["Ⅾ"] = "sdpy",     -- 首道双拼
+    ["ⅲ"] = "ⅲ",        -- 间接辅助标记
+    ["ⅱ"] = "t9",       -- 拼音九键
+--Ⅹ  --万象保留
+--ↀ  --备用名额不多了，谁再发明双拼掂量一下必要性。。。
+--ↁ
+--ↂ
 }
 
-local __input_type_cache = {}      -- 缓存首个命中的 id（兼容旧用法）
-local __input_md_cache   = {}      -- 新增：是否命中“ⅲ”（若命中则为 "ⅲ"，否则为 nil）
+-- 固定检测顺序，避免使用 pairs() 时顺序不确定。
+-- “ⅲ”属于辅助标记，单独检测，不放入正常输入类型顺序。
+local INPUT_METHOD_MARKER_ORDER = {
+    "Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "Ⅶ", "Ⅷ",
+    "Ⅸ", "Ⅹ", "Ⅺ", "Ⅻ", "Ⅿ", "Ⅼ", "Ⅽ", "Ⅾ", "ⅱ",
+}
 
---- 根据 speller/algebra 中的特殊符号返回输入类型：
---- - 若未命中“ⅲ”，只返回 id（保持旧行为）
---- - 若命中“ⅲ”，返回两个值：id, "ⅲ"
+local INPUT_METHOD_MD_MARKER = "ⅲ"
+
+--- 返回形式：
+---   id
+---   id, "ⅲ"  -- 命中辅助标记时
 ---@param env Env
----@return string                -- id
----@return string|nil            -- md（仅在命中“ⅲ”时返回 "ⅲ"）
+---@return string id
+---@return string|nil md
 function wanxiang.get_input_method_type(env)
-    local schema_id = env.engine.schema.schema_id or "unknown"
+    local config = env.engine.schema.config
+    local algebra = config:get_list("speller/algebra")
+    if not algebra then return "unknown" end
 
-    -- 命中缓存则按是否有 md 决定返回 1 个或 2 个值
-    local cached_id = __input_type_cache[schema_id]
-    if cached_id then
-        local cached_md = __input_md_cache[schema_id]
-        if cached_md then
-            return cached_id, cached_md   -- 返回两个值：id, "ⅲ"
-        else
-            return cached_id              -- 只返回 id
-        end
-    end
-
-    local cfg = env.engine.schema.config
     local result_id = "unknown"
-    local md        = nil                 -- 只有命中“ⅲ”时设为 "ⅲ"
+    local md = nil
 
-    local n = cfg:get_list_size("speller/algebra")
-    for i = 0, n - 1 do
-        local s = cfg:get_string(("speller/algebra/@%d"):format(i))
-        if s then
-            -- 不提前返回：需要把整段都扫描完，才能知道是否命中“ⅲ”
-            for symbol, id in pairs(wanxiang.INPUT_METHOD_MARKERS) do
-                if s:find(symbol, 1, true) then
-                    if symbol == "ⅲ" or id == "ⅲ" then
-                        md = "ⅲ"                  -- 记录辅助标记
-                    else
-                        if result_id == "unknown" then
-                            result_id = id        -- 只记录第一个“正常映射”的 id
-                        end
-                    end
-                end
+    for i = 0, algebra.size - 1 do
+        local value = algebra:get_value_at(i)
+        local rule = value and value:get_string()
+
+        if rule then
+            if not md and rule:find(INPUT_METHOD_MD_MARKER, 1, true) then
+                md = INPUT_METHOD_MD_MARKER
             end
-        end
-    end
 
-    -- 写缓存
-    __input_type_cache[schema_id] = result_id
-    __input_md_cache[schema_id]   = md   -- 命中则为 "ⅲ"，否则为 nil
+            if result_id == "unknown" then
+                for j = 1, #INPUT_METHOD_MARKER_ORDER do
+                    local symbol = INPUT_METHOD_MARKER_ORDER[j]
 
-    -- 返回：命中“ⅲ”→两个值；否则一个值
-    if md then
-        return result_id, md
-    else
-        return result_id
-    end
-end
-
--- Wanxiang Regex > lua --不支持断言够用了
-local RegexParser = {}
-
-function RegexParser.normalize(regex)
-    local p = regex
-    p = p:gsub("%(%?%:", "%(") -- 清理 (?:
-    -- 基础转义
-    p = p:gsub("\\d", "%%d"); p = p:gsub("\\D", "%%D")
-    p = p:gsub("\\w", "%%w"); p = p:gsub("\\W", "%%W")
-    p = p:gsub("\\s", "%%s"); p = p:gsub("\\S", "%%S")
-    -- 符号转义 (注意：\? -> %?，保留字面量问号)
-    p = p:gsub("\\%.", "%%."); p = p:gsub("\\%^", "%%^")
-    p = p:gsub("\\%$", "%%$"); p = p:gsub("\\%*", "%%*")
-    p = p:gsub("\\%+", "%%+"); p = p:gsub("\\%-", "%%-")
-    p = p:gsub("\\%?", "%%?")
-    p = p:gsub("\\%(", "%%("); p = p:gsub("\\%)", "%%)")
-    p = p:gsub("\\%[", "%%["); p = p:gsub("\\%]", "%%]")
-    
-    return p
-end
-
--- 递归展开 ? 量词
--- 输入: "N[0-9]?A"
--- 输出: { "N[0-9]A", "NA" }
-local function expand_optional(pattern_list)
-    local result = {}
-    local has_expansion = false
-
-    for _, pat in ipairs(pattern_list) do
-        -- 寻找第一个未转义的 ? (Regex量词)
-        -- 我们需要找到 ? 的位置，并判断它修饰的前一个原子是什么
-        local q_idx = nil
-        local atom_start = nil
-        local atom_end = nil
-
-        local i = 1
-        local len = #pat
-        while i <= len do
-            local char = string.sub(pat, i, i)
-            
-            if char == "%" then
-                -- 转义符，跳过下一个
-                i = i + 2
-            elseif char == "[" then
-                -- 集合 [...]
-                local j = i + 1
-                while j <= len do
-                    if string.sub(pat, j, j) == "]" and string.sub(pat, j-1, j-1) ~= "%" then
+                    if rule:find(symbol, 1, true) then
+                        result_id = wanxiang.INPUT_METHOD_MARKERS[symbol]
                         break
                     end
-                    j = j + 1
-                end
-                -- 检查后面是不是 ?
-                if j < len and string.sub(pat, j+1, j+1) == "?" then
-                    atom_start = i
-                    atom_end = j
-                    q_idx = j + 1
-                    break -- 找到目标
-                end
-                i = j + 1
-            elseif char == "?" then
-                -- 找到一个 ?，修饰前面一个字符
-                -- 注意：如果前面没有字符（比如开头），则是非法正则，忽略
-                if i > 1 then
-                    q_idx = i
-                    atom_end = i - 1
-                    -- 判断前一个字符是否是转义结果 (如 %d)
-                    if atom_end > 1 and string.sub(pat, atom_end-1, atom_end-1) == "%" then
-                        atom_start = atom_end - 1
-                    else
-                        atom_start = atom_end
-                    end
-                    break
-                end
-                i = i + 1
-            else
-                i = i + 1
-            end
-        end
-
-        if q_idx then
-            has_expansion = true
-            -- 1. 保留原子 (去掉 ?)
-            local p1 = string.sub(pat, 1, atom_end) .. string.sub(pat, q_idx + 1)
-            -- 2. 删除原子 (去掉 原子+?)
-            local p2 = string.sub(pat, 1, atom_start - 1) .. string.sub(pat, q_idx + 1)
-            
-            table.insert(result, p1)
-            table.insert(result, p2)
-        else
-            table.insert(result, pat)
-        end
-    end
-
-    if has_expansion then
-        if #result > 100 then return result end
-        return expand_optional(result)
-    end
-    
-    return result
-end
-
-function RegexParser.smart_split(str, sep)
-    local results = {}
-    local current = ""
-    local paren_depth = 0
-    local brack_depth = 0
-    for i = 1, #str do
-        local char = string.sub(str, i, i)
-        local prev = (i > 1) and string.sub(str, i-1, i-1) or ""
-        if prev == "%" then
-            current = current .. char
-        else
-            if char == '(' then paren_depth = paren_depth + 1 end
-            if char == ')' then paren_depth = paren_depth - 1 end
-            if char == '[' then brack_depth = brack_depth + 1 end
-            if char == ']' then brack_depth = brack_depth - 1 end
-            if char == sep and paren_depth == 0 and brack_depth == 0 then
-                table.insert(results, current); current = ""
-            else
-                current = current .. char
-            end
-        end
-    end
-    table.insert(results, current)
-    return results
-end
-
-function RegexParser.expand_groups(str_list)
-    local expanded = {}
-    for _, str in ipairs(str_list) do
-        local s_idx, e_idx = nil, nil
-        local depth = 0
-        for i = 1, #str do
-            local char = string.sub(str, i, i)
-            local prev = (i > 1) and string.sub(str, i-1, i-1) or ""
-            if prev ~= "%" then
-                if char == "(" then
-                    if depth == 0 then s_idx = i end
-                    depth = depth + 1
-                elseif char == ")" then
-                    depth = depth - 1
-                    if depth == 0 and s_idx then e_idx = i; break end
                 end
             end
-        end
-        if s_idx and e_idx then
-            local prefix = string.sub(str, 1, s_idx - 1)
-            local content = string.sub(str, s_idx + 1, e_idx - 1)
-            local suffix = string.sub(str, e_idx + 1)
-            local parts = RegexParser.smart_split(content, "|")
-            for _, part in ipairs(parts) do
-                table.insert(expanded, prefix .. part .. suffix)
-            end
-        else
-            table.insert(expanded, str)
+
+            if result_id ~= "unknown" and md then break end
         end
     end
-    return expanded
+
+    if md then return result_id, md end
+    return result_id
 end
 
-local function ensure_anchor(p)
-    if not p or p == "" then return p end
-    -- 补 $
-    local last = string.sub(p, -1)
-    local prev = string.sub(p, -2, -2)
-    if last ~= "$" or (last == "$" and prev == "%") then p = p .. "$" end
-    -- 补 ^
-    local first = string.sub(p, 1, 1)
-    if first ~= "^" then p = "^" .. p end
-    return p
-end
-
-function RegexParser.convert(regex_str)
-    if not regex_str or regex_str == "" then return {} end
-    local norm = RegexParser.normalize(regex_str)
-    -- 1. 拆分 |
-    local list = RegexParser.smart_split(norm, "|")
-    -- 2. 展开 () 分组
-    local loop = 0
-    local changed = true
-    while changed and loop < 5 do
-        local new_list = RegexParser.expand_groups(list)
-        if #new_list > #list then list = new_list else changed = false end
-        loop = loop + 1
-    end
-    -- 3. 展开 ? 量词
-    -- 这会将带 ? 的正则裂变成多个确定的正则
-    list = expand_optional(list)
-    -- 4. 补全锚点
-    for i, p in ipairs(list) do list[i] = ensure_anchor(p) end
-    return list
-end
-
---- 调用加载函数
-function wanxiang.load_regex_patterns(config, path)
-    local patterns = {}
-    local map = config:get_map(path)
-    if not map then return patterns end
-    local keys = map:keys()
-    if not keys then return patterns end
-    
-    local count = 0
-    local is_ud = (type(keys) == "userdata")
-    if is_ud then
-        if keys.size then count = keys.size 
-        else pcall(function() count = keys:size() end) end
-    else
-        count = #keys
-    end
-
-    for i = 0, count - 1 do
-        local k_str
-        if is_ud then
-            local it = keys:get_value_at(i)
-            if it then k_str = it.value end
-            if not k_str then pcall(function() k_str = keys[i] end) end
-        else
-            k_str = keys[i+1]
-        end
-
-        if k_str then
-            local val = map:get_value(k_str)
-            if val and val.value and val.value ~= "" then
-                local lua_pats = RegexParser.convert(val.value)
-                for _, p in ipairs(lua_pats) do
-                    table.insert(patterns, p)
-                end
-            end
-        end
-    end
-    return patterns
-end
 return wanxiang
