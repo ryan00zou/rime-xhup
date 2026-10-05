@@ -31,7 +31,6 @@ switches:
     states: [ 简, 繁 ]
     reset: 0
   - name: ascii_punct
-   # states: [ 。，, ．， ]
     reset: 0
   - name: super_tips
     states: [ 提示关, 提示开 ]
@@ -41,8 +40,8 @@ engine:
   processors:
     - ascii_composer
     - recognizer
-    - lua_processor@super_sequence_processor
-    - lua_processor@super_tips_processor
+    - lua_processor@*wanxiang.super_sequence*P  #手动排序，高亮候选 ctrl+j左移动 ctrl+k 右移动 ctrl+l 移除位移  ctrl+p 置顶
+    - lua_processor@*wanxiang.super_tips  #超级提示模块：表情、简码、翻译、化学式、等等靠你想象
     - key_binder
     - speller
     - punctuator
@@ -67,18 +66,12 @@ engine:
     - table_translator@zaoci
     - table_translator@cizu_c6
     - table_translator@zaoci_c6
-    - lua_translator@date_translator
-    - lua_translator@time_translator
-    - table_translator@custom_phraseVD
-    - table_translator@custom_phraseXT
-    - table_translator@custom_phraseVH
-    - table_translator@custom_phraseQMZ
+    - lua_translator@*wanxiang.shijian  #农历、日期、节气、节日、时间、周、问候模板等等，触发清单看下文
+    - lua_translator@*wanxiang.number_conversion  #数字、金额大写，通过输入大写R1234获得候选输出
+    - lua_translator@*wanxiang.super_calculator  #超级计算器，Lua内查看高级用法
     - table_translator@easy_en            # 新增：easy_en 翻译器
     - table_translator@flypy_radical                  # 触发进入部件组字模式
     - lua_translator@*word_autocaps*translator  # 新增：英文单词自动大写
-    - lua_translator@shijian              # 新增：万象日期时间功能
-    - lua_translator@number_conversion  # 数字转换 (金额大写、科学计数、进制)
-    - lua_translator@super_calculator     # 新增：万象超级计算器
     - reverse_lookup_translator
     - history_translator@history
     - table_translator@emoji
@@ -87,13 +80,13 @@ engine:
     - reverse_lookup_filter@radical_lookup
     - simplifier
     - simplifier@simplification
-    - lua_filter@super_sequence_filter
-    - lua_filter@zaoci_phrase_filter
+    - lua_filter@*wanxiang.super_sequence*F  #放去重前,接管排序索引固定,手动排序，对高亮候选 ctrl+j左移动 ctrl+k 右移动 ctrl+0 移除位移
+    - lua_filter@*wanxiang.zaoci_phrase*filter
     - lua_filter@*word_autocaps*filter
     - uniquifier
 
 speller:
-  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ;'"
+  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ;']"
   initials: ";abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
   finals: ""
   delimiter: " '"
@@ -162,7 +155,7 @@ easy_en:
   initial_quality: -2                # 不建议数值设定超过主翻译器的初始权重
   enable_encoder: false
   enable_sentence: false
-  enable_user_dict: true
+  enable_user_dict: false
   enable_completion: true
   comment_format:
     - xform/.*//                      # 清空提示码
@@ -179,38 +172,6 @@ simplification:
   opencc_config: s2tw.json
   option_name: simplification
   tips: all #简繁对照
-
-custom_phraseVD:
-  dictionary: ""
-  user_dict: flypy_top
-  db_class: stabledb
-  enable_sentence: false
-  enable_completion: false
-  initial_quality: 0 #用户词和系统词重码 置顶
-
-custom_phraseXT:
-  dictionary: ""
-  user_dict: flypy_bc
-  db_class: stabledb
-  enable_sentence: false
-  enable_completion: false
-  initial_quality: -1 #本表词和系统词重码居后
-
-custom_phraseVH:
-  dictionary: ""
-  user_dict: flypy_vh
-  db_class: stabledb
-  enable_sentence: false
-  enable_completion: false
-  initial_quality: -1.5 #本表词和系统词重码居后
-
-custom_phraseQMZ:
-  dictionary: ""
-  user_dict: flypy_full
-  db_class: stabledb
-  enable_sentence: false
-  enable_completion: false
-  initial_quality: -1.8 #和系统词重码时居后
 
 # emoji 表情功能
 emoji:
@@ -317,6 +278,65 @@ super_tips:
     - lua/data/tips_user.txt
 
 style:
-  text_orientation: horizontal
+  color_scheme: crane
+  color_scheme_dark: crane
+  horizontal: true  # 新版已不生效，新版使用 candidate_list_layout 来控制
   candidate_list_layout: linear
-  horizontal: true
+
+preset_color_schemes:
+  # 凇鹤版小鹤双拼输入法皮肤
+  crane:
+    name: "雪下鹤"
+    author: "水猫 <kchen0x@gmail.com>"
+    back_color: 0xE3E3E3                    # 候选条背景色
+    border_color_width: 2
+    border_color: 0x545554                  # 边框色
+    border_height: 4                        # 窗口边界高度，大于圆角半径才生效
+    border_width: 4                         # 窗口边界宽度，大于圆角半径才生效
+    candidate_format: "\u2005%@\u2005"      # 取消掉候选序号，用 1/6 em 空格 U+2005 包围候选词，这样更边距更舒服
+    corner_radius: 4                        # 窗口圆角半径
+    hilited_text_color: 0x000000            # 编码高亮
+    hilited_back_color: 0xffffff            # 编码背景高亮
+    hilited_candidate_label_color: 0xeeeeee # 首选编号色
+    hilited_candidate_text_color: 0xffffff  # 首选文字色
+    hilited_candidate_back_color: 0x545554  # 首选背景色
+    hilited_comment_text_color: 0xcccccc    # 首选提示字母色
+    label_color: 0x555555                             # 次选编号色
+    candidate_text_color: 0x000000                    # 次选文字色
+    candidate_back_color: 0xffffff                    # 次选背景色
+    comment_text_color: 0x555555                      # 次选提示字母色
+    # horizontal: true                        # 候选窗横向显示
+    font_point: 18                          # 候选窗文字字号
+    comment_font_point: 16                  # 提示文字大小
+    label_font_point: 12                    # 候选窗编号字号
+    # inline_preedit: true                    # 开启嵌入编码
+    # inline_candidate: true                  # 开启嵌入候选
+    text_color: 0x333333                    # 编码行文字颜色，24位色值，16进制，BGR顺序
+
+  # 原版小鹤双拼输入法皮肤
+  metro:
+    author: "flypy.com"
+    back_color: 0xffffff                    # 候选条背景色
+    border_color_width: 1
+    border_color: 0xe89f00                  # 边框色
+    border_height: 8                        # 窗口边界高度，大于圆角半径才生效
+    border_width: 8                         # 窗口边界宽度，大于圆角半径才生效
+    candidate_format: "%c\u2005%@"          # 用 1/6 em 空格 U+2005 来控制编号 %c 和候选词 %@ 前后的空间。
+    corner_radius: 6                        # 窗口圆角半径
+    #hilited_corner_radius: 6                # 高亮圆角
+    hilited_text_color: 0x000000            # 编码高亮
+    hilited_back_color: 0xffffff            # 编码背景高亮
+    hilited_candidate_label_color: 0xeeeeee # 首选编号色
+    hilited_candidate_text_color: 0xffffff  # 首选文字色
+    hilited_candidate_back_color: 0xe89f00  # 首选背景色
+    hilited_comment_text_color: 0xcccccc    # 首选提示字母色
+    label_color: 0x555555                             # 次选编号色
+    candidate_text_color: 0x000000                    # 次选文字色
+    candidate_back_color: 0xffffff                    # 次选背景色
+    comment_text_color: 0x555555                      # 次选提示字母色
+    horizontal: true                        # 候选窗横向显示
+    font_point: 18                          # 候选窗文字字号
+    label_font_point: 14                    # 候选窗编号字号
+    inline_preedit: true                    # 开启嵌入编码
+    name: "metro"
+    text_color: 0x333333                    # 编码行文字颜色，24位色值，16进制，BGR顺序

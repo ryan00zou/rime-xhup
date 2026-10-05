@@ -17,5 +17,7 @@ encoder:
     - length_in_range: [4, 14]
       formula: "AaBaCaZaAcZc"
 import_tables:
-  - flypydz
+  - "flypy_dicts/flypy.primary"           # -0- 首选字词（68,572条，官方原生自然序）
+  - "flypy_dicts/flypy.secondary"         # 1.1 次选字词（分类词库：次选）
+  - "flypy_dicts/flypy.full.code.chars"   # 全码字（已有简码，全码有其他字词，约1650条）
 ...

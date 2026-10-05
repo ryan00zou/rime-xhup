@@ -1,0 +1,13 @@
+# Rime dictionary
+# encoding: utf-8
+#---config@码表分类=主码-用户码表
+#---config@码表别名=用户
+
+---
+name: flypy.user
+version: "v10.9s"
+sort: by_weight
+use_preset_vocabulary: false
+...
+ry-an@qq.com	ory
+ry-an@outlook.com	ory
