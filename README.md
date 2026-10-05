@@ -54,6 +54,9 @@
 ### 致谢
 
 （1）感谢鹤大的小鹤双拼音形输入法，给予日常输入带来的巨大便利。<https://flypy.cc>
+
 （2）谢谢omgredfog的五笔方案启发 <https://github.com/omgredfog/98wubi>
+
 （3）谢谢万象拼音，移植的快捷键调频。<https://github.com/amzxyz/rime-wanxiang>
+
 （4）谢谢凇鹤拼音，移植了小鹤音形的分类码表。<https://github.com/kchen0x/rime-crane>
