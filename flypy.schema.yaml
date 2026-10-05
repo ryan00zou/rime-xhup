@@ -241,11 +241,11 @@ recognizer:
     #uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
     uppercase: "" #中文状态大写锁定直接上屏
     reverse_lookup: "[a-z`]*`+[a-z`]*"
-    zaoci: "^[a-z]*'[a-z']*$"
+    zaoci: "^'[]a-z']*$"
     #emoji: "^oe[a-z]*'?$"
     #easy_en: "^oy[a-z]*'?$"
     flypy_radical: "^ok[a-z']*$"
-    zaoci_c6: "^~[a-z']*$"
+    zaoci_c6: "^~[]a-z']*$"
     punct: "^/([0-9]0?|[A-Za-z]+)$"      # 新增：符号输入 /fh
     number: "^R[0-9]+[.]?[0-9]*$"        # 金额大写输入 R + 数字（万象默认）
     yr1: "^N0[1-9]?0?[1-9]?"             # 年份输入 N + 日期（万象默认）
