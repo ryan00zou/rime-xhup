@@ -25,27 +25,27 @@ encoder:
       formula: "AaBaCaZa"
 import_tables:
   # --- 用户优先层 ---
-  - "flypy_dicts/flypy.user.top"          # 用户置顶码表
+  - "flypy_dicts/flypy.0_1user.top"          # 用户置顶码表
 
   # --- ① 熟手模式基础库（默认启用）---
-  - "flypy_dicts/flypy.primary"           # -0- 首选字词（68,572条，官方原生自然序）
-  - "flypy_dicts/flypy.secondary"         # 1.1 次选字词（分类词库：次选）
-  - "flypy_dicts/flypy.whimsicality"      # 1.1 随心码（分类词库：随心）
-  - "flypy_dicts/flypy.off-table"         # 2.2 表外字（分类词库：表外）
-  - "flypy_dicts/flypy.single.code"       # 2.1 一简词（一简次选，26个单字/词）
-  - "flypy_dicts/flypy.fast.symbols"      # 1.2 快符（分号引导符号）
+  - "flypy_dicts/flypy.1_0primary"           # -0- 首选字词（68,572条，官方原生自然序）
+  - "flypy_dicts/flypy.1_1secondary"         # 1.1 次选字词（分类词库：次选）
+  - "flypy_dicts/flypy.1_2off-table"         # 2.2 表外字（分类词库：表外）
+  - "flypy_dicts/flypy.1_3whimsicality"      # 1.1 随心码（分类词库：随心）
+  - "flypy_dicts/flypy.1_4single.code"       # 2.1 一简词（一简次选，26个单字/词）
+  - "flypy_dicts/flypy.1_5fast.symbols"      # 1.2 快符（分号引导符号）
 
   # --- ② 常规模式扩展（已有简码的全码词，可按需开启）---
-  - "flypy_dicts/flypy.full.code.words"   # 2.3 全码词（约500条）
+  - "flypy_dicts/flypy.1_7full.code.words"   # 2.3 全码词（约500条）
 
   # --- ③ 初学模式扩展（全码字与生僻字，默认关闭，初学可开启）---
-  # - "flypy_dicts/flypy.full.code.chars"   # 全码字（已有简码，全码有其他字词，约1650条）
-  # - "flypy_dicts/flypy.rare.chars"        # 生僻字（约500条）
+  # - "flypy_dicts/flypy.2_1full.code.chars"   # 全码字（已有简码，全码有其他字词，约1650条）
+  # - "flypy_dicts/flypy.5_1rare.chars"        # 生僻字（约500条）
 
   # --- 可选附加库 ---
-  - "flypy_dicts/flypy.secondary.simple"  # 二简次选（66个单字，备选）
-  # - "flypy_dicts/flypy.symbols"           # 符号与部首字根
-  # - "flypy_dicts/flypy.emoji"             # 斜杠引导表情
-  # - "flypy_dicts/flypy.ok"                # ok引导两分/三分拆字拼字库（8.8万条）
-  - "flypy_dicts/flypy.user"              # 用户自用词库
+  - "flypy_dicts/flypy.3_1secondary.simple"  # 二简次选（66个单字，备选）
+  # - "flypy_dicts/flypy.1_6symbols"           # 符号与部首字根
+  # - "flypy_dicts/flypy.4_2emoji"             # 斜杠引导表情
+  # - "flypy_dicts/flypy.1_8ok"                # ok引导两分/三分拆字拼字库（8.8万条）
+  - "flypy_dicts/flypy.4_1user"              # 用户自用词库
 ...
